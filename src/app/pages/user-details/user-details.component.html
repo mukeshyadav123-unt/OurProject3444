@@ -1,7 +1,9 @@
 <section id="profile">
   <mat-card class="profile-card text-center">
     <mat-card-header class="text-center m-auto justify-content-center d-flex">
-      <mat-card-title class="text-center">Welcome </mat-card-title>
+      <mat-card-title class="text-center mb-3"
+        >Welcome <span *ngIf="user.name">{{ username | titlecase }}</span>
+      </mat-card-title>
       <mat-card-subtitle class="text-center"
         >Update your profile</mat-card-subtitle
       >
@@ -59,14 +61,25 @@
             />
           </mat-form-field>
 
-          <button
-            mat-raised-button
-            class="btn"
-            type="submit"
-            [disabled]="!updateForm.form.valid"
+          <div
+            class="d-flex justify-content-center align-content-center flex-row"
           >
-            Update
-          </button>
+            <button
+              mat-raised-button
+              class="btn submit-button"
+              type="submit"
+              [disabled]="!updateForm.form.valid"
+            >
+              Update
+            </button>
+            <button
+              class="btn btn-danger"
+              (click)="deleteMe()"
+              [disabled]="!password.validity.valid"
+            >
+              Delete account
+            </button>
+          </div>
         </form>
       </div>
     </mat-card-content>

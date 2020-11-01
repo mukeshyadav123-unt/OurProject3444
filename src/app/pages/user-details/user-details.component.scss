@@ -9,14 +9,17 @@
     mat-card-title {
       color: #66615b;
       font-weight: 600;
+      i {
+        color: #8800ef;
+      }
     }
   }
   .update-form {
-    button {
+    .submit-button {
       background-color: var(--primary-color);
       color: white;
       width: 120px;
-      margin: auto;
+      margin-right: 10px;
     }
     ::ng-deep .mat-form-field-flex {
       background-color: white;

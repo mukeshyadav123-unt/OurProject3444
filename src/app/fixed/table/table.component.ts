@@ -4,6 +4,7 @@ import { TableData } from "../../interfaces/table-data";
 @Component({
   selector: "table-cmp",
   templateUrl: "table.component.html",
+  styleUrls: ["./table.component.scss"],
 })
 export class TableComponent implements OnInit {
   searchResult: TableData;

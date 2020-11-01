@@ -1,4 +1,4 @@
-<mat-tab-group>
+<mat-tab-group class="container mt-5">
   <mat-tab label="Users"
     ><table-cmp
       *ngIf="users"
@@ -7,12 +7,7 @@
       (actionClicked)="makeAdminClicked($event)"
     ></table-cmp>
   </mat-tab>
-  <mat-tab label="Drivers"
-    ><table-cmp
-      *ngIf="users"
-      [data]="users"
-      (deleteClicked)="deleteClickedAdmin($event)"
-      (actionClicked)="removeAdminClicked($event)"
-    ></table-cmp>
+  <mat-tab label="Admins"
+    ><table-cmp *ngIf="admins" [data]="admins"></table-cmp>
   </mat-tab>
 </mat-tab-group>

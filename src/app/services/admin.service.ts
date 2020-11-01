@@ -18,4 +18,20 @@ export class AdminService {
       responseType: "json",
     });
   }
+  deleteUser(id: string): Observable<any> {
+    return this._HttpClient.delete(`${environment.api}/api/user/${id}`, {
+      responseType: "json",
+    });
+  }
+  makeUserAdmin(id: string, adminPass: string): Observable<any> {
+    return this._HttpClient.put(
+      `${environment.api}/api/user/${id}/make-admin`,
+      {
+        admin_password: adminPass,
+      },
+      {
+        responseType: "json",
+      }
+    );
+  }
 }

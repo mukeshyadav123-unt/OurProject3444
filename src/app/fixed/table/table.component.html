@@ -1,8 +1,10 @@
 <div class="row m-0">
   <div class="col-md-12">
-    <div class="card">
+    <div class="card mt-4">
       <div class="card-header d-flex justify-content-md-between">
-        <h4 class="card-title main-color font-weight-bold">{{ data.title }}</h4>
+        <h4 class="card-title main-color font-weight-bold m-0">
+          {{ data.title }}
+        </h4>
         <form>
           <div class="input-group no-border">
             <input
@@ -40,20 +42,22 @@
                   <td *ngFor="let key of searchResult.keys" class="text-center">
                     {{ item[key] }}
                   </td>
-                  <td class="text-center">
+                  <td class="text-center" *ngIf="data.buttonName">
                     <button
-                      class="btn main-btn btn-danger"
+                      class="btn main-btn"
                       id="{{ 'user' + i }}"
-                      (click)="deleteClick(i)"
+                      (click)="actionClick(i)"
+                      *ngIf="data.buttonName[0]"
                     >
                       {{ data.buttonName[0] }}
                     </button>
                   </td>
-                  <td class="text-center">
+                  <td class="text-center" *ngIf="data.buttonName">
                     <button
-                      class="btn main-btn btn-primary"
+                      class="btn btn-danger"
                       id="{{ 'user' + i }}"
-                      (click)="actionClick(i)"
+                      (click)="deleteClick(i)"
+                      *ngIf="data.buttonName[1]"
                     >
                       {{ data.buttonName[1] }}
                     </button>

@@ -12,7 +12,9 @@ export class UserDetailsComponent implements OnInit {
     name: "",
     email: "",
     password: "",
+    is_admin: 0,
   };
+  username: "";
   constructor(private _UserService: UserService) {
     this.getUser();
   }
@@ -20,19 +22,29 @@ export class UserDetailsComponent implements OnInit {
     this._UserService.getMe().subscribe((user) => {
       this.user.name = user["name"];
       this.user.email = user["email"];
-      console.log(user);
+      this.user.is_admin = user["is_admin"];
+      this.username = user["name"];
     });
   }
   update(form: NgForm) {
     let userInfo = {
       name: form.value.name,
       email: form.value.email,
-      current_password: form.value.password,
+      password: form.value.password,
     };
+
     this._UserService.updateUser(userInfo).subscribe((res) => {
+      this.getUser();
       alert(res["message"]);
     });
   }
-
+  deleteMe() {
+    if (confirm(`Are you sure you want to delete your account?`)) {
+      this._UserService.deleteUser().subscribe((res) => {
+        alert(res);
+        this._UserService.logout();
+      });
+    }
+  }
   ngOnInit(): void {}
 }

@@ -16,8 +16,11 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {}
   login(form: NgForm) {
-    this._UserService
-      .login(form.value.email, form.value.password)
-      .subscribe((res) => {});
+    this._UserService.login(form.value.email, form.value.password).subscribe(
+      (res) => {},
+      (err) => {
+        alert("User is not found");
+      }
+    );
   }
 }
