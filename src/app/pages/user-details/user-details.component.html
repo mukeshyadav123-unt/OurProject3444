@@ -1,0 +1,74 @@
+<section id="profile">
+  <mat-card class="profile-card text-center">
+    <mat-card-header class="text-center m-auto justify-content-center d-flex">
+      <mat-card-title class="text-center">Welcome </mat-card-title>
+      <mat-card-subtitle class="text-center"
+        >Update your profile</mat-card-subtitle
+      >
+    </mat-card-header>
+    <mat-card-content
+      ><div class="update-form">
+        <form
+          class="d-flex flex-column"
+          (ngSubmit)="update(updateForm)"
+          #updateForm="ngForm"
+        >
+          <mat-form-field appearance="fill">
+            <mat-label>Name</mat-label>
+            <input
+              matInput
+              placeholder="Name"
+              [(ngModel)]="user.name"
+              type="text"
+              minlength="3"
+              maxlength="32"
+              name="name"
+              required
+              #name
+              value="{{ user.name }}"
+            />
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Email</mat-label>
+            <input
+              matInput
+              placeholder="Email"
+              [(ngModel)]="user.email"
+              type="email"
+              minlength="8"
+              maxlength="32"
+              name="email"
+              required
+              #email
+              value="{{ user.email }}"
+            />
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Confirm with your password</mat-label>
+            <input
+              matInput
+              placeholder="Password"
+              [(ngModel)]="user.password"
+              type="password"
+              minlength="8"
+              maxlength="32"
+              name="password"
+              required
+              #password
+              value="{{ user.password }}"
+            />
+          </mat-form-field>
+
+          <button
+            mat-raised-button
+            class="btn"
+            type="submit"
+            [disabled]="!updateForm.form.valid"
+          >
+            Update
+          </button>
+        </form>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</section>

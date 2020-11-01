@@ -1,0 +1,103 @@
+<section id="register" class="">
+  <div class="register-container text-center m-auto">
+    <div class="container margin-auto">
+      <div class="row">
+        <div class="col-lg-6 col-md-10 m-auto">
+          <h2>Join us, create your account now!</h2>
+          <p>
+            or <span><a [routerLink]="['/login']">Login</a></span
+            >, if you already have an account
+          </p>
+
+          <mat-card class="m-auto d-flex justify-content-center register-card">
+            <div
+              class="logo-circle d-flex justify-content-center align-content-center"
+            >
+              <div class="logo-containter">
+                <img
+                  src="../../../assets/images/everest.png"
+                  class="img-fluid"
+                />
+              </div>
+            </div>
+            <div class="register-form">
+              <form
+                class="d-flex flex-column"
+                (ngSubmit)="register(registerForm)"
+                #registerForm="ngForm"
+              >
+                <mat-form-field appearance="fill">
+                  <mat-label>Name</mat-label>
+                  <input
+                    matInput
+                    placeholder="Name"
+                    [(ngModel)]="user.name"
+                    type="text"
+                    minlength="3"
+                    maxlength="32"
+                    name="name"
+                    required
+                    #name
+                  />
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                  <mat-label>Email</mat-label>
+                  <input
+                    matInput
+                    placeholder="Email"
+                    [(ngModel)]="user.email"
+                    type="email"
+                    minlength="8"
+                    maxlength="32"
+                    name="email"
+                    required
+                    #email
+                  />
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                  <mat-label>Password</mat-label>
+                  <input
+                    matInput
+                    placeholder="your password"
+                    [(ngModel)]="user.password"
+                    type="password"
+                    name="password"
+                    minlength="8"
+                    maxlength="32"
+                    required
+                    #password
+                  />
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                  <mat-label>Re-type password</mat-label>
+                  <input
+                    matInput
+                    placeholder="confirm password"
+                    [(ngModel)]="user.rePassword"
+                    type="password"
+                    name="rePassword"
+                    minlength="8"
+                    maxlength="32"
+                    required
+                    #rePassword
+                  />
+                </mat-form-field>
+                <button
+                  mat-raised-button
+                  class="btn"
+                  type="submit"
+                  [disabled]="
+                    !registerForm.form.valid ||
+                    rePassword.value !== password.value
+                  "
+                >
+                  register
+                </button>
+              </form>
+            </div>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

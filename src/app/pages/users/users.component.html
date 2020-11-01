@@ -1,0 +1,18 @@
+<mat-tab-group>
+  <mat-tab label="Users"
+    ><table-cmp
+      *ngIf="users"
+      [data]="users"
+      (deleteClicked)="deleteClickedUser($event)"
+      (actionClicked)="makeAdminClicked($event)"
+    ></table-cmp>
+  </mat-tab>
+  <mat-tab label="Drivers"
+    ><table-cmp
+      *ngIf="users"
+      [data]="users"
+      (deleteClicked)="deleteClickedAdmin($event)"
+      (actionClicked)="removeAdminClicked($event)"
+    ></table-cmp>
+  </mat-tab>
+</mat-tab-group>

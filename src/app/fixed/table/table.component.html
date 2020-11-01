@@ -1,0 +1,69 @@
+<div class="row m-0">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header d-flex justify-content-md-between">
+        <h4 class="card-title main-color font-weight-bold">{{ data.title }}</h4>
+        <form>
+          <div class="input-group no-border">
+            <input
+              type="text"
+              value=""
+              class="form-control"
+              placeholder="Search by {{ data.searchField }}"
+              (input)="onSearchChange($event.target.value)"
+            />
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <i class="fa fa-search" aria-hidden="true"></i>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table">
+            <thead class="text-primary">
+              <th *ngFor="let header of data.headerRow" class="text-center">
+                {{ header }}
+              </th>
+              <th
+                class="text-center"
+                *ngFor="let buttonName of data.buttonName"
+              >
+                {{ buttonName }}
+              </th>
+            </thead>
+            <tbody>
+              <ng-container *ngIf="data.dataRows">
+                <tr *ngFor="let item of searchResult.dataRows; let i = index">
+                  <td *ngFor="let key of searchResult.keys" class="text-center">
+                    {{ item[key] }}
+                  </td>
+                  <td class="text-center">
+                    <button
+                      class="btn main-btn btn-danger"
+                      id="{{ 'user' + i }}"
+                      (click)="deleteClick(i)"
+                    >
+                      {{ data.buttonName[0] }}
+                    </button>
+                  </td>
+                  <td class="text-center">
+                    <button
+                      class="btn main-btn btn-primary"
+                      id="{{ 'user' + i }}"
+                      (click)="actionClick(i)"
+                    >
+                      {{ data.buttonName[1] }}
+                    </button>
+                  </td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
