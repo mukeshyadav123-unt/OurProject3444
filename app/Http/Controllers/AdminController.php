@@ -26,7 +26,7 @@ class AdminController extends Controller
 
         return User::where('is_admin', '=', 1)
             // ->paginate(15);
-            ->all();
+            ->get();
     }
 
     public function show(User $user)
