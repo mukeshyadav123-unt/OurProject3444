@@ -14,7 +14,8 @@ class AdminController extends Controller
             return $this->validateAdmin();
         }
 
-        return User::paginate(15);
+        // return User::paginate(15);
+        return User::all();
     }
 
     public function showAdmins()
@@ -24,7 +25,8 @@ class AdminController extends Controller
         }
 
         return User::where('is_admin', '=', 1)
-            ->paginate(15);
+            // ->paginate(15);
+            ->all();
     }
 
     public function show(User $user)
