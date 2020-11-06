@@ -14,8 +14,8 @@ class AdminController extends Controller
             return $this->validateAdmin();
         }
 
-
-        return User::paginate(15);
+        // return User::paginate(15);
+        return User::all();
     }
 
     public function showAdmins()
@@ -25,7 +25,8 @@ class AdminController extends Controller
         }
 
         return User::where('is_admin', '=', 1)
-            ->paginate(15);
+            // ->paginate(15);
+            ->all();
     }
 
     public function show(User $user)
@@ -92,8 +93,7 @@ class AdminController extends Controller
         if (!Hash::check(request()->admin_password, $authed_user->password)) {
             return response('wrong admin password ', 401);
         }
-        $user->is_admin = 1;
-        $user->save();
+        $user->is_admin = true;
         return [
             'message'=> 'user now is admin',
             'user' => $user
@@ -109,12 +109,8 @@ class AdminController extends Controller
             return $this->validateAdmin();
         }
 
-        if (!$user->is_admin) {
-            $user->delete();
-            return "user deleted successfully";
-        } else {
-            return response("You can't delete other Admins", 400) ;
-        }
+        $user->delete();
+        return "user deleted successfully";
     }
 
     protected function validateAdmin()

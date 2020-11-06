@@ -89,6 +89,7 @@ class UserController extends Controller
 
     public function signup()
     {
+
         request()->validate([
             'name' => ['required' , 'min:3' , 'max:100'],
             'email' =>['required' , 'email'],
