@@ -15,7 +15,7 @@ class AdminController extends Controller
         }
 
         // return User::paginate(15);
-        return User::all();
+        return User::get();
     }
 
     public function showAdmins()
