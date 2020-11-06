@@ -14,6 +14,7 @@ class AdminController extends Controller
             return $this->validateAdmin();
         }
 
+
         return User::paginate(15);
     }
 
@@ -91,7 +92,8 @@ class AdminController extends Controller
         if (!Hash::check(request()->admin_password, $authed_user->password)) {
             return response('wrong admin password ', 401);
         }
-        $user->is_admin = true;
+        $user->is_admin = 1;
+        $user->save();
         return [
             'message'=> 'user now is admin',
             'user' => $user
@@ -107,8 +109,12 @@ class AdminController extends Controller
             return $this->validateAdmin();
         }
 
-        $user->delete();
-        return "user deleted successfully";
+        if (!$user->is_admin) {
+            $user->delete();
+            return "user deleted successfully";
+        } else {
+            return response("You can't delete other Admins", 400) ;
+        }
     }
 
     protected function validateAdmin()
