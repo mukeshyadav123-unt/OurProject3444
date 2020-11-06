@@ -29,6 +29,7 @@ import { UserDetailsComponent } from "./pages/user-details/user-details.componen
 import { NavbarComponent } from "./fixed/navbar/navbar.component";
 import { HomeComponent } from "./pages/home/home.component";
 import { ManageProductComponent } from "./pages/manage-product/manage-product.component";
+import { CartComponent } from './pages/cart/cart.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { ManageProductComponent } from "./pages/manage-product/manage-product.co
     NavbarComponent,
     HomeComponent,
     ManageProductComponent,
+    CartComponent,
   ],
   imports: [
     BrowserModule,

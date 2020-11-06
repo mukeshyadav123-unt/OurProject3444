@@ -7,6 +7,7 @@ import { UsersComponent } from "./pages/users/users.component";
 import { HomeComponent } from "./pages/home/home.component";
 import { AuthGuard } from "./_guard";
 import { ManageProductComponent } from "./pages/manage-product/manage-product.component";
+import { CartComponent } from "./pages/cart/cart.component";
 const routerOptions: ExtraOptions = {
   scrollPositionRestoration: "enabled",
   anchorScrolling: "enabled",
@@ -21,8 +22,14 @@ const routes: Routes = [
   // },
   { path: "login", component: LoginComponent },
   { path: "register", component: RegisterComponent },
-  { path: "", component: HomeComponent },
-  { path: "manage-products", component: ManageProductComponent },
+  { path: "cart", component: CartComponent, canActivate: [AuthGuard] },
+  { path: "", component: HomeComponent, canActivate: [AuthGuard] },
+  {
+    path: "manage-products",
+    component: ManageProductComponent,
+    canActivate: [AuthGuard],
+    data: { roles: "admin" },
+  },
   {
     path: "profile",
     component: UserDetailsComponent,

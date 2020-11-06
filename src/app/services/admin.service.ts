@@ -17,10 +17,17 @@ export class AdminService {
       responseType: "json",
     });
   }
-  getAdmins(): Observable<any> {
-    return this._HttpClient.get(`${environment.api}/api/user/admins`, {
-      responseType: "json",
-    });
+  getAdmins(page: number = null): Observable<any> {
+    let pageParameter: string = "";
+    if (page) {
+      pageParameter += "?page=" + page;
+    }
+    return this._HttpClient.get(
+      `${environment.api}/api/user/admins${pageParameter}`,
+      {
+        responseType: "json",
+      }
+    );
   }
   deleteUser(id: string): Observable<any> {
     return this._HttpClient.delete(`${environment.api}/api/user/${id}`, {

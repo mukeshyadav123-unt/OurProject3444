@@ -33,6 +33,8 @@ export class UserDetailsComponent implements OnInit {
       name: form.value.name,
       email: form.value.email,
       password: form.value.password,
+      new_password: form.value.newPassword,
+      new_password_confirmation: form.value.renewPassword,
     };
 
     this._UserService.updateUser(userInfo).subscribe((res) => {

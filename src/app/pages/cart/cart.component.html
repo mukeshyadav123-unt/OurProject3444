@@ -1,0 +1,76 @@
+<div class="row m-0" *ngIf="cart?.dataRows">
+  <div class="col-md-12">
+    <div class="card mt-4">
+      <div class="card-header d-flex justify-content-md-between">
+        <h4 class="card-title main-color font-weight-bold m-0">
+          {{ cart.title }}
+        </h4>
+        <form>
+          <div class="input-group no-border">
+            <input
+              type="text"
+              value=""
+              class="form-control"
+              placeholder="Search by {{ cart.searchField }}"
+              (input)="onSearchChange($event.target.value)"
+            />
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <i class="fa fa-search" aria-hidden="true"></i>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table">
+            <thead class="text-primary">
+              <th *ngFor="let header of cart.headerRow" class="text-center">
+                {{ header }}
+              </th>
+              <th
+                class="text-center"
+                *ngFor="let buttonName of cart.buttonName"
+              >
+                {{ buttonName }}
+              </th>
+            </thead>
+            <tbody>
+              <ng-container *ngIf="cart.dataRows">
+                <tr *ngFor="let item of searchResult.dataRows; let i = index">
+                  <td *ngFor="let key of searchResult.keys" class="text-center">
+                    {{ item[key] }}
+                  </td>
+                  <td class="text-center" *ngIf="cart.buttonName">
+                    <button
+                      class="btn main-btn"
+                      id="{{ 'user' + i }}"
+                      (click)="removeItem(i)"
+                      *ngIf="cart.buttonName[0]"
+                    >
+                      {{ cart.buttonName[0] }}
+                    </button>
+                  </td>
+                  <td class="text-center" *ngIf="cart.buttonName">
+                    <button
+                      class="btn btn-danger"
+                      id="{{ 'user' + i }}"
+                      (click)="removeItem(i)"
+                      *ngIf="cart.buttonName[1]"
+                    >
+                      {{ cart.buttonName[1] }}
+                    </button>
+                  </td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+        </div>
+        <!-- <div class="total-cost">
+          <p><span>Total cost: </span>{{ cart.dataRows.cart_cost }}</p>
+        </div> -->
+      </div>
+    </div>
+  </div>
+</div>

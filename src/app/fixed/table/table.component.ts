@@ -36,7 +36,6 @@ export class TableComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.data);
     this.searchResult = Object.assign({}, this.data);
     this.searchResult.dataRows = this.searchResult.dataRows["data"];
   }

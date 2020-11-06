@@ -33,6 +33,9 @@ export class UsersComponent implements OnInit {
   pageChanged(page) {
     this.getUsers(page);
   }
+  pageChangedAdmin(page) {
+    this.getAdmins(page);
+  }
   makeAdminClicked(index) {
     let adminPass = prompt("Enter your password:");
     this._AdminService
@@ -63,10 +66,10 @@ export class UsersComponent implements OnInit {
     });
   }
 
-  getAdmins() {
+  getAdmins(page: number = null) {
     this.admins = null;
 
-    this._AdminService.getAdmins().subscribe((admins) => {
+    this._AdminService.getAdmins(page).subscribe((admins) => {
       this.admins = {
         headerRow: ["Name", "Email"],
         keys: ["name", "email"],

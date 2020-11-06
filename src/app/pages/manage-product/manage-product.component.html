@@ -2,7 +2,7 @@
   <div class="container">
     <div class="product-form w-100">
       <mat-card class="w-100">
-        <mat-card-title class="mb-4">Add a product</mat-card-title>
+        <mat-card-title class="mb-4 main-color">Add a product</mat-card-title>
         <form
           class="d-flex justify-content-center flex-column"
           (ngSubmit)="addProduct(addForm)"
@@ -28,8 +28,17 @@
             <div class="col-md-4">
               <mat-form-field appearance="fill" class="w-100">
                 <mat-label>Category</mat-label>
-                <mat-select required>
-                  <mat-option [value]="product.category"> food </mat-option>
+                <mat-select
+                  required
+                  name="category"
+                  [(ngModel)]="product.category_id"
+                >
+                  <mat-option
+                    value="{{ category.id }}"
+                    *ngFor="let category of categories"
+                  >
+                    {{ category.name }}
+                  </mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
@@ -39,13 +48,13 @@
                 <input
                   matInput
                   placeholder="Price"
-                  [(ngModel)]="product.price"
+                  [(ngModel)]="product.cost"
                   type="number"
                   minlength="3"
                   maxlength="32"
-                  name="price"
+                  name="cost"
                   required
-                  #price
+                  #cost
                 />
               </mat-form-field>
             </div>
@@ -79,21 +88,17 @@
             </div>
             <div class="col-md-4 d-flex align-items-center mat-form-padding">
               <input
-                #csvInput
+                #imageInput
                 hidden="true"
                 type="file"
                 onclick="this.value=null"
-                (change)="csvInputChange($event)"
+                (change)="imageInputChange($event)"
                 accept="image/*"
               />
-              <button
-                mat-flat-button
-                class="img-btn"
-                (click)="csvInput.click()"
-              >
+              <a mat-flat-button class="img-btn" (click)="imageInput.click()">
                 Choose Product Image
                 <i class="fa fa-file-image-o" aria-hidden="true"></i>
-              </button>
+              </a>
             </div>
           </div>
           <div class="row w-100 d-flex justify-content-end">
@@ -104,12 +109,18 @@
                 type="submit"
                 [disabled]="!addForm.form.valid"
               >
-                Login
+                Add
               </button>
             </div>
           </div>
         </form>
       </mat-card>
+      <table-cmp
+        *ngIf="products"
+        [data]="products"
+        (actionClicked)="deleteClickedProduct($event)"
+        (pageChanged)="pageChanged($event)"
+      ></table-cmp>
     </div>
   </div>
 </section>
