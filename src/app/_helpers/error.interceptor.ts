@@ -20,15 +20,9 @@ export class ErrorInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     return next.handle(request).pipe(
       catchError((err) => {
-        if (
-          (err.status === 401 || err.status === 400) &&
-          (err.status.toString().includes("Token") ||
-            err.status.toString().includes("token"))
-        ) {
-          // auto logout if 401 response returned from api
+        if (err.status === 403) {
+          // auto logout if 403 response returned from api
           this._UserService.logout();
-
-          location.reload(true);
         }
 
         return throwError(err);

@@ -13,6 +13,8 @@ export class UserDetailsComponent implements OnInit {
     email: "",
     password: "",
     is_admin: 0,
+    newPassword: "",
+    renewPassword: "",
   };
   username: "";
   constructor(private _UserService: UserService) {

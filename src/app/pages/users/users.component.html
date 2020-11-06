@@ -5,6 +5,7 @@
       [data]="users"
       (deleteClicked)="deleteClickedUser($event)"
       (actionClicked)="makeAdminClicked($event)"
+      (pageChanged)="pageChanged($event)"
     ></table-cmp>
   </mat-tab>
   <mat-tab label="Admins"

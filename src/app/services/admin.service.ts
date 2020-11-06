@@ -8,8 +8,12 @@ import { environment } from "../../environments/environment";
 })
 export class AdminService {
   constructor(private _HttpClient: HttpClient) {}
-  getUsers(): Observable<any> {
-    return this._HttpClient.get(`${environment.api}/api/user`, {
+  getUsers(page: number = null): Observable<any> {
+    let pageParameter: string = "";
+    if (page) {
+      pageParameter += "?page=" + page;
+    }
+    return this._HttpClient.get(`${environment.api}/api/user${pageParameter}`, {
       responseType: "json",
     });
   }

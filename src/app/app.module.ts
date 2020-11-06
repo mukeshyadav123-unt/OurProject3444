@@ -1,26 +1,34 @@
+//Imports
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
-
 import { AppRoutingModule } from "./app-routing.module";
-import { AppComponent } from "./app.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { LoginComponent } from "./pages/login/login.component";
 import { MatCardModule } from "@angular/material/card";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { FormsModule } from "@angular/forms";
 import { MatInputModule } from "@angular/material/input";
 import { MatButtonModule } from "@angular/material/button";
-import { RegisterComponent } from "./pages/register/register.component";
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
+import { MatTabsModule } from "@angular/material/tabs";
+import { NgxPaginationModule } from "ngx-pagination";
+import { MatSelectModule } from "@angular/material/select";
+
+//providers
 import { JwtInterceptor } from "./_helpers/jwt.interceptor";
 import { ErrorInterceptor } from "./_helpers/error.interceptor";
 import { AuthGuard } from "./_guard";
 import { CookieService } from "ngx-cookie-service";
+
+//declarations
+import { AppComponent } from "./app.component";
 import { UsersComponent } from "./pages/users/users.component";
+import { RegisterComponent } from "./pages/register/register.component";
 import { TableComponent } from "./fixed/table/table.component";
+import { LoginComponent } from "./pages/login/login.component";
 import { UserDetailsComponent } from "./pages/user-details/user-details.component";
-import { MatTabsModule } from "@angular/material/tabs";
-import { NavbarComponent } from './fixed/navbar/navbar.component';
+import { NavbarComponent } from "./fixed/navbar/navbar.component";
+import { HomeComponent } from "./pages/home/home.component";
+import { ManageProductComponent } from "./pages/manage-product/manage-product.component";
 
 @NgModule({
   declarations: [
@@ -31,6 +39,8 @@ import { NavbarComponent } from './fixed/navbar/navbar.component';
     TableComponent,
     UserDetailsComponent,
     NavbarComponent,
+    HomeComponent,
+    ManageProductComponent,
   ],
   imports: [
     BrowserModule,
@@ -43,6 +53,8 @@ import { NavbarComponent } from './fixed/navbar/navbar.component';
     HttpClientModule,
     MatButtonModule,
     MatTabsModule,
+    NgxPaginationModule,
+    MatSelectModule,
   ],
   providers: [
     CookieService,

@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import { Observable, BehaviorSubject } from "rxjs";
 import { CookieService } from "ngx-cookie-service";
 import { map } from "rxjs/operators";
@@ -45,7 +45,7 @@ export class UserService {
               "currentUser",
               JSON.stringify(response["user"])
             );
-            this.redirectUrl = "/profile";
+
             this.userSource.next(response["user"]);
             this.router.navigate([this.redirectUrl]);
           }

@@ -1,0 +1,17 @@
+#addProduct {
+  padding: 80px 0;
+  mat-card-title {
+    color: var(--second-color);
+  }
+  .add-btn {
+    background-color: var(--primary-color);
+    color: white;
+  }
+  .img-btn {
+    background-color: var(--primary-color);
+    color: white;
+  }
+  .mat-form-padding {
+    padding-bottom: 1.34375em;
+  }
+}

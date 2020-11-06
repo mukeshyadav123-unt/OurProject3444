@@ -30,7 +30,9 @@ export class UsersComponent implements OnInit {
         });
     }
   }
-
+  pageChanged(page) {
+    this.getUsers(page);
+  }
   makeAdminClicked(index) {
     let adminPass = prompt("Enter your password:");
     this._AdminService
@@ -47,9 +49,9 @@ export class UsersComponent implements OnInit {
       );
   }
 
-  getUsers() {
+  getUsers(page: number = null) {
     this.users = null;
-    this._AdminService.getUsers().subscribe((users) => {
+    this._AdminService.getUsers(page).subscribe((users) => {
       this.users = {
         headerRow: ["Name", "Email"],
         keys: ["name", "email"],
@@ -60,6 +62,7 @@ export class UsersComponent implements OnInit {
       };
     });
   }
+
   getAdmins() {
     this.admins = null;
 

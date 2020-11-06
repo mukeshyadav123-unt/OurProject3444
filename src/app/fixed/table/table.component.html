@@ -38,7 +38,19 @@
             </thead>
             <tbody>
               <ng-container *ngIf="data.dataRows">
-                <tr *ngFor="let item of searchResult.dataRows; let i = index">
+                <tr
+                  *ngFor="
+                    let item of searchResult.dataRows
+                      | paginate
+                        : {
+                            id: data.title,
+                            itemsPerPage: data.dataRows.per_page,
+                            currentPage: data.dataRows.current_page,
+                            totalItems: data.dataRows.total
+                          };
+                    let i = index
+                  "
+                >
                   <td *ngFor="let key of searchResult.keys" class="text-center">
                     {{ item[key] }}
                   </td>
@@ -63,6 +75,13 @@
                     </button>
                   </td>
                 </tr>
+                <pagination-controls
+                  (pageChange)="handlePageChange($event)"
+                  previousLabel="Prev"
+                  nextLabel="Next"
+                  id="{{ data.title }}"
+                  autoHide="true"
+                ></pagination-controls>
               </ng-container>
             </tbody>
           </table>

@@ -1,0 +1,115 @@
+<section id="addProduct">
+  <div class="container">
+    <div class="product-form w-100">
+      <mat-card class="w-100">
+        <mat-card-title class="mb-4">Add a product</mat-card-title>
+        <form
+          class="d-flex justify-content-center flex-column"
+          (ngSubmit)="addProduct(addForm)"
+          #addForm="ngForm"
+        >
+          <div class="row">
+            <div class="col-md-4">
+              <mat-form-field appearance="fill" class="w-100">
+                <mat-label>Name</mat-label>
+                <input
+                  matInput
+                  placeholder="Name"
+                  [(ngModel)]="product.name"
+                  type="text"
+                  minlength="3"
+                  maxlength="32"
+                  name="name"
+                  required
+                  #name
+                />
+              </mat-form-field>
+            </div>
+            <div class="col-md-4">
+              <mat-form-field appearance="fill" class="w-100">
+                <mat-label>Category</mat-label>
+                <mat-select required>
+                  <mat-option [value]="product.category"> food </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-md-4">
+              <mat-form-field appearance="fill" class="w-100">
+                <mat-label>Price</mat-label>
+                <input
+                  matInput
+                  placeholder="Price"
+                  [(ngModel)]="product.price"
+                  type="number"
+                  minlength="3"
+                  maxlength="32"
+                  name="price"
+                  required
+                  #price
+                />
+              </mat-form-field>
+            </div>
+            <div class="col-md-4">
+              <mat-form-field appearance="fill" class="w-100">
+                <mat-label>Quantity</mat-label>
+                <input
+                  matInput
+                  placeholder="Quantity"
+                  [(ngModel)]="product.quantity"
+                  type="number"
+                  name="quantity"
+                  required
+                  #quantity
+                />
+              </mat-form-field>
+            </div>
+            <div class="col-md-4">
+              <mat-form-field appearance="fill" class="w-100">
+                <mat-label>Description</mat-label>
+                <textarea
+                  matInput
+                  placeholder="Decscription"
+                  [(ngModel)]="product.description"
+                  type="text"
+                  name="description"
+                  required
+                  #description
+                ></textarea>
+              </mat-form-field>
+            </div>
+            <div class="col-md-4 d-flex align-items-center mat-form-padding">
+              <input
+                #csvInput
+                hidden="true"
+                type="file"
+                onclick="this.value=null"
+                (change)="csvInputChange($event)"
+                accept="image/*"
+              />
+              <button
+                mat-flat-button
+                class="img-btn"
+                (click)="csvInput.click()"
+              >
+                Choose Product Image
+                <i class="fa fa-file-image-o" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+          <div class="row w-100 d-flex justify-content-end">
+            <div>
+              <button
+                mat-raised-button
+                class="btn add-btn"
+                type="submit"
+                [disabled]="!addForm.form.valid"
+              >
+                Login
+              </button>
+            </div>
+          </div>
+        </form>
+      </mat-card>
+    </div>
+  </div>
+</section>

@@ -60,6 +60,50 @@
               value="{{ user.password }}"
             />
           </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Confirm with your current password</mat-label>
+            <input
+              matInput
+              placeholder="Password"
+              [(ngModel)]="user.password"
+              type="password"
+              minlength="8"
+              maxlength="32"
+              name="password"
+              required
+              #password
+              value="{{ user.password }}"
+            />
+          </mat-form-field>
+          <mat-label>If you want to change your password</mat-label>
+          <mat-form-field appearance="fill">
+            <mat-label>New password</mat-label>
+            <input
+              matInput
+              placeholder="New password"
+              [(ngModel)]="user.newPassword"
+              type="password"
+              minlength="8"
+              maxlength="32"
+              name="newPassword"
+              #newPassword
+              value="{{ user.newPassword }}"
+            />
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Confirm new password</mat-label>
+            <input
+              matInput
+              placeholder="Confirm password"
+              [(ngModel)]="user.renewPassword"
+              type="password"
+              minlength="8"
+              maxlength="32"
+              name="renewPassword"
+              #renewPassword
+              value="{{ user.renewPassword }}"
+            />
+          </mat-form-field>
 
           <div
             class="d-flex justify-content-center align-content-center flex-row"
@@ -68,7 +112,10 @@
               mat-raised-button
               class="btn submit-button"
               type="submit"
-              [disabled]="!updateForm.form.valid"
+              [disabled]="
+                !updateForm.form.valid &&
+                newPassword.value === renewPassword.value
+              "
             >
               Update
             </button>
