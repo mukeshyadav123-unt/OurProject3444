@@ -15,8 +15,8 @@ class AdminController extends Controller
         }
 
         return User::where('is_admin', '=', 0)
-        // ->paginate(15);
-        ->get();
+        ->paginate(20);
+        // ->get();
     }
 
     public function showAdmins()
@@ -26,8 +26,8 @@ class AdminController extends Controller
         }
 
         return User::where('is_admin', '=', 1)
-            // ->paginate(15);
-            ->get();
+            ->paginate(20);
+        // ->get();
     }
 
     public function show(User $user)
@@ -110,7 +110,6 @@ class AdminController extends Controller
         if ($this->validateAdmin()) {
             return $this->validateAdmin();
         }
-
         if (!$user->is_admin) {
             $user->delete();
             return "user deleted successfully";

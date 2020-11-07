@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Throwable;
 
 class Handler extends ExceptionHandler
 {
@@ -33,5 +34,15 @@ class Handler extends ExceptionHandler
     public function register()
     {
         //
+    }
+    public function render($request, Throwable $exception)
+    {
+        if ($exception->getMessage()  == 'Unauthenticated.') {
+            return response()->json([
+         'message' => 'Unauthenticated.'
+        ], 403);
+        }
+        // dd($exception);
+        return parent::render($request, $exception);
     }
 }
