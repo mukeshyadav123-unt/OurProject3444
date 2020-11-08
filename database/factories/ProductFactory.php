@@ -21,8 +21,12 @@ class ProductFactory extends Factory
      */
     public function definition()
     {
+       
         return [
-            //
+            'name' =>  $this->faker->word,
+            'description' => $this->faker->text,
+            'cost' => $this->faker->biasedNumberBetween(1, 100000),
+            'tag_id' => Tag::inRandomOrder()->first()
         ];
     }
 }
