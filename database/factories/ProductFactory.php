@@ -25,7 +25,7 @@ class ProductFactory extends Factory
         return [
             'name' =>  $this->faker->word,
             'description' => $this->faker->text,
-            'cost' => $this->faker->biasedNumberBetween(1, 100000),
+            'cost' => $this->faker->biasedNumberBetween(1, 1000),
             'tag_id' => Tag::inRandomOrder()->first()
         ];
     }

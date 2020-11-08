@@ -21,9 +21,6 @@ class CreateProductsTable extends Migration
             $table->decimal('cost');
             $table->timestamps();
 
-            $table->foreign('tag_id')
-                ->references('id')->on('tags')
-                ->onDelete('cascade');
         });
     }
 
