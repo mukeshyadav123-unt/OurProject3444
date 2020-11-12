@@ -14,7 +14,10 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        Category::paginate(10);
+        return response()->json([
+            'message' => '',
+            'data' =>  Category::paginate(10)
+        ]);
     }
 
     /**
@@ -23,11 +26,20 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store()
     {
-        //
-    }
+        request()->validate([
+            'name' => ['required' , 'min:3']
+        ]);
 
+        $category = Category::create(['name' => request()->name]);
+
+        return response()->json([
+            'message' => 'successfully created',
+            'data' => $category
+        ]);
+                 
+    }
     /**
      * Display the specified resource.
      *
@@ -36,7 +48,10 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        //
+        return response()->json([
+            'message' => '',
+            'data' => $category
+        ]);
     }
 
     /**
@@ -46,9 +61,19 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(Category $category)
     {
-        //
+        request()->validate([
+            'name' => ['required' , 'min:3']
+        ]);
+
+        $category->name = request()->name;
+        $category->save();
+
+        return response()->json([
+            'message' => 'Successfully updated',
+            'data' => $category
+        ]);
     }
 
     /**
@@ -59,6 +84,11 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $category->delete();
+
+        return response()->json([
+            'message' => 'successfully delete',
+            'data' => $category
+        ]);
     }
 }
