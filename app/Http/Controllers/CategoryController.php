@@ -7,14 +7,21 @@ use App\Models\User;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 7edc2c2e4d3a18866e4ff411ff73ab436af2d4e5
 class CategoryController extends Controller
 {
     public function __construct()
     {
         $this->middleware(function ($request, $next) {
             if ($this->validateAdmin()) {
+<<<<<<< HEAD
                 return $this->validateAdmin();
+=======
+                return response('Unauthorized', 401);
+>>>>>>> 7edc2c2e4d3a18866e4ff411ff73ab436af2d4e5
             }
             return $next($request);
         });
@@ -52,8 +59,13 @@ class CategoryController extends Controller
             'message' => 'successfully created',
             'data' => $category
         ]);
+<<<<<<< HEAD
     }
 
+=======
+                 
+    }
+>>>>>>> 7edc2c2e4d3a18866e4ff411ff73ab436af2d4e5
     /**
      * Display the specified resource.
      *
@@ -80,11 +92,17 @@ class CategoryController extends Controller
         request()->validate([
             'name' => ['required' , 'min:3']
         ]);
+<<<<<<< HEAD
 
         if (Category::where('name', '=', request()->name)->first()) {
             return response('Category already exist', 401);
         }
 
+=======
+        if (Category::where('name', '=', request()->name)->first()) {
+            return response('Category already exist', 401);
+        }
+>>>>>>> 7edc2c2e4d3a18866e4ff411ff73ab436af2d4e5
         $category->name = request()->name;
         $category->save();
 
@@ -109,7 +127,11 @@ class CategoryController extends Controller
             'data' => $category
         ]);
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 7edc2c2e4d3a18866e4ff411ff73ab436af2d4e5
     protected function validateAdmin()
     {
         $authed_user = Auth::user();

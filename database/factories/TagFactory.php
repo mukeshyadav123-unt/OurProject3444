@@ -2,17 +2,17 @@
 
 namespace Database\Factories;
 
-use App\Models\DoorLog;
+use App\Models\Tag;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class DoorLogFactory extends Factory
+class TagFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = DoorLog::class;
+    protected $model = Tag::class;
 
     /**
      * Define the model's default state.
@@ -22,7 +22,8 @@ class DoorLogFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name' => $this->faker->word
+            
         ];
     }
 }

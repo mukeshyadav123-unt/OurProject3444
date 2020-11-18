@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDoorLogsTable extends Migration
+class CreateCategoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,9 @@ class CreateDoorLogsTable extends Migration
      */
     public function up()
     {
-        Schema::create('door_logs', function (Blueprint $table) {
+        Schema::create('categories', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->nullable();
-            $table->string('picture_url')->nullable();
-            $table->boolean('entered');
-            $table->boolean('is_camera');
+            $table->string('name')->unique();
             $table->timestamps();
         });
     }
@@ -30,6 +27,6 @@ class CreateDoorLogsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('door_logs');
+        Schema::dropIfExists('categories');
     }
 }
