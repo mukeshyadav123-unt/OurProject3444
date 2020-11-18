@@ -8,43 +8,37 @@ use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            if ($this->validateAdmin()) {
+                return $this->validateAdmin();
+            }
+            return $next($request);
+        });
+    }
+
     public function showAll()
     {
-        if ($this->validateAdmin()) {
-            return $this->validateAdmin();
-        }
-
-        // return User::paginate(15);
-        return User::all();
+        return User::where('is_admin', '=', 0)
+        ->paginate(20);
     }
 
     public function showAdmins()
     {
-        if ($this->validateAdmin()) {
-            return $this->validateAdmin();
-        }
-
         return User::where('is_admin', '=', 1)
-            // ->paginate(15);
-            ->get();
+            ->paginate(20);
+        // ->get();
     }
 
     public function show(User $user)
     {
-        if ($this->validateAdmin()) {
-            return $this->validateAdmin();
-        }
-
         return $user;
     }
 
 
     public function storeUser()
     {
-        if ($this->validateAdmin()) {
-            return $this->validateAdmin();
-        }
-
         request()->validate([
             'name' => ['required' , 'min:3' , 'max:100'],
             'email' =>['required' , 'email'],
@@ -79,10 +73,6 @@ class AdminController extends Controller
 
     public function makeAdmin(User $user)
     {
-        if ($this->validateAdmin()) {
-            return $this->validateAdmin();
-        }
-
         request()->validate([
             'admin_password' => ['required'],
         ]);
@@ -93,7 +83,8 @@ class AdminController extends Controller
         if (!Hash::check(request()->admin_password, $authed_user->password)) {
             return response('wrong admin password ', 401);
         }
-        $user->is_admin = true;
+        $user->is_admin = 1;
+        $user->save();
         return [
             'message'=> 'user now is admin',
             'user' => $user
@@ -105,12 +96,12 @@ class AdminController extends Controller
 
     public function destroy(User $user)
     {
-        if ($this->validateAdmin()) {
-            return $this->validateAdmin();
+        if (!$user->is_admin) {
+            $user->delete();
+            return "user deleted successfully";
+        } else {
+            return response("You can't delete other Admins", 400) ;
         }
-
-        $user->delete();
-        return "user deleted successfully";
     }
 
     protected function validateAdmin()
