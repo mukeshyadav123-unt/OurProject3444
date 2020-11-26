@@ -32,28 +32,61 @@ class CartController extends Controller
         $amount = request()->amount ?? 1;
         $authed = Auth::user();
 
+
+        $product = Product::find(request()->product_id);
+
+        if (!$this->availableInStock($product, $amount)) {
+            return response([
+                'message' => 'No available items in the stock',
+                'product_id' => request()->product_id,
+                'in_stock' => $product->in_stock
+            ], 400);
+        }
+        // all the validation passed
+        // trying to add to the cart
         $cart = Cart::where([
             'product_id' => request()->product_id,
             'user_id' => $authed->id
         ])->first();
-        // find the value we got from in stock or 0 
-        $cached = $cart->amount ?? 0;
-        $inStockValue = $this->notAvailableInStock(request()->product_id, $amount + $cached);
-        if ($inStockValue) {
-            return response([
-                'message' => 'No available items in the stock',
+        if ($cart) {
+            $cart->amount = $amount;
+            $cart->save();
+        } else {
+            $cart = Cart::updateOrCreate([
                 'product_id' => request()->product_id,
-                'in_stock' => $inStockValue
-            ], 400);
+                'user_id' => $authed->id,
+                'amount' => $amount
+            ]);
         }
-
-
+        return response()->json([
+            'message' => 'Product added to the cart cart'
+        ]);
     }
 
 
-    public function destroy(Cart $cart)
+    public function destroy()
     {
+        request()->validate([
+            'product_id' => ['required', 'numeric', 'exists:products,id']
+        ]);
+        $authed = Auth::user();
 
+        //remove product from cart
+        $cart = Cart::where([
+            'product_id' => request()->product_id,
+            'user_id' => $authed->id
+        ])->first();
+
+        if ($cart) {
+
+            $cart->delete();
+            return response()->json([
+                'message' => 'Product removed from the  cart'
+            ]);
+        }
+        return response()->json([
+            'message' => 'Product not found at the user  cart'
+        ]);
     }
 
     protected function getProducts()
@@ -77,14 +110,10 @@ class CartController extends Controller
         return $pureProducts->makeHidden('cartProducts');
     }
 
-    protected function notAvailableInStock($productId, $amount)
+    protected function availableInStock($product, $amount): bool
     {
 
-        $product = Product::find($productId);
 
-        if ($product->in_stock >= $amount) {
-            return null;
-        }
-        return $product->in_stock;
+        return $product->in_stock >= $amount;
     }
 }

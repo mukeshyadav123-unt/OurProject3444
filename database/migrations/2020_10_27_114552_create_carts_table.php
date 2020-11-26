@@ -19,7 +19,10 @@ class CreateCartsTable extends Migration
             $table->unsignedBigInteger('product_id');
             $table->unsignedInteger('amount');
             $table->timestamps();
+
             $table->unique(['user_id' , 'product_id']);
+            $table->index(['user_id', 'product_id']);
+
             $table
                 ->foreign('product_id')
                 ->references('id')->on('products')
