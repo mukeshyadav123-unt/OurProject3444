@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -52,9 +53,19 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store()
     {
-        //
+        // return request()->all();
+        request()->validate([
+            'name'=> ['required' , 'min:3'],
+            'description'=> ['required' , 'min:15'],
+            'cost' => ['required' , 'numeric', 'min:0.1'],
+            'category_id' => ['numeric' , 'exists:categories,id'],
+            'image_url' => [  'required' , 'array'],
+            'image_url.*' => ['active_url' , 'required']
+        ]);
+
+        return "hoooola";
     }
 
     /**
@@ -102,5 +113,14 @@ class ProductController extends Controller
                 'category' => $product->category
             ]
         ]);
+    }
+    protected function validateAdmin()
+    {
+        $authed_user = Auth::user();
+
+        if ($authed_user['is_admin'] != 1) {
+            return response('unauthorized', 401);
+        }
+        return null;
     }
 }

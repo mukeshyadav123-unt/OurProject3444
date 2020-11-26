@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DoorController;
 use App\Http\Controllers\DoorLogController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use App\Models\DoorLog;
 use Illuminate\Http\Request;
@@ -45,6 +46,15 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
         Route::put("{category}", [CategoryController::class,'update']);
 
         Route::delete("{category}", [CategoryController::class,'destroy']);
+    });
+    Route::group(['prefix' => 'product'], function () {
+        Route::get("", [ProductController::class,'index']);
+        Route::post("", [ProductController::class,'store']);
+        Route::get("{product}", [ProductController::class,'show']);
+
+        Route::put("{product}", [ProductController::class,'update']);
+
+        Route::delete("{product}", [ProductController::class,'destroy']);
     });
 });
 
