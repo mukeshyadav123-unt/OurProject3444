@@ -18,16 +18,10 @@ class AdminController extends Controller
         });
     }
 
-<<<<<<< HEAD
     public function showAll()
     {
         return User::where('is_admin', '=', 0)
         ->paginate(20);
-=======
-        return User::where('is_admin', '=', 0)
-        ->paginate(20);
-        // ->get();
->>>>>>> 7edc2c2e4d3a18866e4ff411ff73ab436af2d4e5
     }
 
     public function showAdmins()
@@ -108,15 +102,6 @@ class AdminController extends Controller
         } else {
             return response("You can't delete other Admins", 400) ;
         }
-<<<<<<< HEAD
-=======
-        if (!$user->is_admin) {
-            $user->delete();
-            return "user deleted successfully";
-        } else {
-            return response("You can't delete other Admins", 400) ;
-        }
->>>>>>> 7edc2c2e4d3a18866e4ff411ff73ab436af2d4e5
     }
 
     protected function validateAdmin()

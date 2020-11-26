@@ -36,7 +36,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
         Route::post("{user}", [AdminController::class,'storeUser']);
         Route::delete("{user}", [AdminController::class,'destroy']);
     });
-    
+
     Route::group(['prefix' => 'category'], function () {
         Route::get("", [CategoryController::class,'index']);
         Route::post("", [CategoryController::class,'store']);
@@ -47,7 +47,6 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
         Route::delete("{category}", [CategoryController::class,'destroy']);
     });
 });
-
 
 Route::post("login", [UserController::class,'login']);
 Route::post("signup", [UserController::class,'signup']);
