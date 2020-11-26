@@ -2,12 +2,9 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\DoorController;
-use App\Http\Controllers\DoorLogController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
-use App\Models\DoorLog;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,39 +21,43 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => 'auth:sanctum'], function () {
     //All secure URL's
-    Route::get("me", [UserController::class,'showMe']);
-    Route::delete("me", [UserController::class,'destroy']);
-    Route::put("me", [UserController::class,'update']);
+    Route::get("me", [UserController::class, 'showMe']);
+    Route::delete("me", [UserController::class, 'destroy']);
+    Route::put("me", [UserController::class, 'update']);
 
     Route::group(['prefix' => 'user'], function () {
-        Route::get("", [AdminController::class,'showAll']);
-        Route::get("admins", [AdminController::class,'showAdmins']);
+        Route::get("", [AdminController::class, 'showAll']);
+        Route::get("admins", [AdminController::class, 'showAdmins']);
 
-        Route::put("{user}/make-admin", [AdminController::class,'makeAdmin']);
-        Route::get("{user}", [AdminController::class,'show']);
-        Route::post("{user}", [AdminController::class,'storeUser']);
-        Route::delete("{user}", [AdminController::class,'destroy']);
+        Route::put("{user}/make-admin", [AdminController::class, 'makeAdmin']);
+        Route::get("{user}", [AdminController::class, 'show']);
+        Route::post("{user}", [AdminController::class, 'storeUser']);
+        Route::delete("{user}", [AdminController::class, 'destroy']);
     });
 
     Route::group(['prefix' => 'category'], function () {
-        Route::get("", [CategoryController::class,'index']);
-        Route::post("", [CategoryController::class,'store']);
-        Route::get("{category}", [CategoryController::class,'show']);
+        Route::get("", [CategoryController::class, 'index']);
+        Route::post("", [CategoryController::class, 'store']);
+        Route::get("{category}", [CategoryController::class, 'show']);
 
-        Route::put("{category}", [CategoryController::class,'update']);
+        Route::put("{category}", [CategoryController::class, 'update']);
 
-        Route::delete("{category}", [CategoryController::class,'destroy']);
+        Route::delete("{category}", [CategoryController::class, 'destroy']);
     });
     Route::group(['prefix' => 'product'], function () {
-        Route::get("", [ProductController::class,'index']);
-        Route::post("", [ProductController::class,'store']);
-        Route::get("{product}", [ProductController::class,'show']);
+        Route::get("", [ProductController::class, 'index']);
+        Route::post("", [ProductController::class, 'store']);
+        Route::get("{product}", [ProductController::class, 'show']);
 
-        Route::put("{product}", [ProductController::class,'update']);
+        Route::put("{product}", [ProductController::class, 'update']);
 
-        Route::delete("{product}", [ProductController::class,'destroy']);
+        Route::delete("{product}", [ProductController::class, 'destroy']);
+    });
+    Route::group(['prefix' => 'cart'], function () {
+        Route::get("", [CartController::class, 'index']);
+
     });
 });
 
-Route::post("login", [UserController::class,'login']);
-Route::post("signup", [UserController::class,'signup']);
+Route::post("login", [UserController::class, 'login']);
+Route::post("signup", [UserController::class, 'signup']);

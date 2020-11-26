@@ -10,7 +10,7 @@ class Product extends Model
     use HasFactory;
 
     protected $fillable = ['name' , 'description' , 'cost' , 'category_id' , 'in_stock'];
-
+    protected $hidden = ['updated_at'];
     public function category()
     {
         return $this->belongsTo(Category::class);

@@ -9,7 +9,7 @@ class ImageUrl extends Model
 {
     use HasFactory;
     protected $fillable = ['url' , 'product_id'];
-    protected $hidden = ['id' , 'created_at' , 'updated_at'];
+    protected $hidden = ['id' , 'created_at' , 'updated_at' , 'product_id'];
 
 
     public function product()
