@@ -54,7 +54,6 @@ class ProductController extends Controller
 
     public function store()
     {
-        error_log(request());
         request()->validate([
             'name' => ['required', 'min:3'],
             'description' => ['required', 'min:15'],
@@ -120,11 +119,11 @@ class ProductController extends Controller
 
     protected function validateAdmin()
     {
-        if (!(request()->isMethod('post'))) {
-            request()->validate([
-            'admin_password' => ['required'],
-        ]);
-        }
+        // if (!(request()->isMethod('post'))) {
+        //     request()->validate([
+        //     'admin_password' => ['required'],
+        // ]);
+        // }
 
         $authed_user = Auth::user();
 
