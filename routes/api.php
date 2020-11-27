@@ -5,6 +5,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\FavoriteProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -57,6 +58,12 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
         Route::get("", [CartController::class, 'index']);
         Route::post("", [CartController::class, 'store']);
         Route::delete("{product_id}", [CartController::class, 'destroy']);
+
+    });
+    Route::group(['prefix' => 'favorite'], function () {
+        Route::get("", [FavoriteProductController::class, 'index']);
+        Route::post("", [FavoriteProductController::class, 'store']);
+        Route::delete("{product_id}", [FavoriteProductController::class, 'destroy']);
 
     });
 });

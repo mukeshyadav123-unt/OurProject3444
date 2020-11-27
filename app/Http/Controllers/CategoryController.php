@@ -13,31 +13,26 @@ class CategoryController extends Controller
     public function __construct()
     {
         $this->middleware(function ($request, $next) {
+            if ($request->isMethod('get')) {
+                return $next($request);
+
+            }
             if ($this->validateAdmin()) {
                 return $this->validateAdmin();
             }
             return $next($request);
         });
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         return response()->json([
             'message' => '',
-            'data' =>  Category::paginate(10)
+            'data' =>  Category::get()
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store()
     {
         request()->validate([
@@ -54,12 +49,7 @@ class CategoryController extends Controller
         ]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
-     */
+
     public function show(Category $category)
     {
         return response()->json([
@@ -68,13 +58,7 @@ class CategoryController extends Controller
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(Category $category)
     {
         request()->validate([
@@ -94,12 +78,7 @@ class CategoryController extends Controller
         ]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy(Category $category)
     {
         $category->delete();

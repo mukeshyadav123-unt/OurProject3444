@@ -97,6 +97,9 @@ class CartController extends Controller
 //        dd($pureProducts->products);
         $pureProducts->cart_cost = 0;
         foreach ($pureProducts->products as $product) {
+            $product->amount = $pureProducts->cartProducts
+                ->where('product_id', $product->id)
+                ->first()->amount;
             $product->totalCost = $pureProducts->cartProducts
                     ->where('product_id', $product->id)
                     ->first()->amount * $product->cost;
