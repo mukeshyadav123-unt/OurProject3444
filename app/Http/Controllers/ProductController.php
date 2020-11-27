@@ -17,7 +17,6 @@ class ProductController extends Controller
             //skip validation for get requests
             if ($request->isMethod('get')) {
                 return $next($request);
-
             }
             if ($this->validateAdmin()) {
                 return $this->validateAdmin();
@@ -55,6 +54,7 @@ class ProductController extends Controller
 
     public function store()
     {
+        error_log(request());
         request()->validate([
             'name' => ['required', 'min:3'],
             'description' => ['required', 'min:15'],
@@ -120,17 +120,19 @@ class ProductController extends Controller
 
     protected function validateAdmin()
     {
-        request()->validate([
+        if (!(request()->isMethod('post'))) {
+            request()->validate([
             'admin_password' => ['required'],
         ]);
+        }
 
         $authed_user = Auth::user();
 
-
-        if (!Hash::check(request()->admin_password, $authed_user->password)) {
-            return response('wrong admin password ', 401);
+        if (!(request()->isMethod('post'))) {
+            if (!Hash::check(request()->admin_password, $authed_user->password)) {
+                return response('wrong admin password ', 401);
+            }
         }
-
         $authed_user = Auth::user();
 
         if ($authed_user['is_admin'] != 1) {
