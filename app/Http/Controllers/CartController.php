@@ -34,7 +34,7 @@ class CartController extends Controller
 
 
         $product = Product::find(request()->product_id);
-
+//        dd($product);
         if (!$this->availableInStock($product, $amount)) {
             return response([
                 'message' => 'No available items in the stock',
@@ -64,21 +64,18 @@ class CartController extends Controller
     }
 
 
-    public function destroy()
+    public function destroy($product_id)
     {
-        request()->validate([
-            'product_id' => ['required', 'numeric', 'exists:products,id']
-        ]);
+        Product::findOrFail($product_id);
         $authed = Auth::user();
 
         //remove product from cart
         $cart = Cart::where([
-            'product_id' => request()->product_id,
+            'product_id' => $product_id,
             'user_id' => $authed->id
         ])->first();
 
         if ($cart) {
-
             $cart->delete();
             return response()->json([
                 'message' => 'Product removed from the  cart'
