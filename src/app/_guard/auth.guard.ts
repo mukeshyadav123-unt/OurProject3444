@@ -15,7 +15,9 @@ export class AuthGuard implements CanActivate {
     protected router: Router,
     protected _UserService: UserService,
     private _CookieService: CookieService
-  ) {}
+  ) {
+    console.log("hi");
+  }
 
   canActivate(
     route: ActivatedRouteSnapshot,
@@ -23,7 +25,8 @@ export class AuthGuard implements CanActivate {
   ): Observable<boolean> | boolean {
     let url: string = state.url;
     const currentUser = this._UserService.currentUserObject;
-    console.log(currentUser.is_admin !== 1);
+    console.log("hi");
+
     return this.checkLogin(currentUser, url, route);
   }
   checkLogin(
@@ -32,7 +35,7 @@ export class AuthGuard implements CanActivate {
     route: ActivatedRouteSnapshot
   ): boolean {
     if (this._CookieService.check("Token")) {
-      if (currentUser.is_admin !== 1 && route.data.roles === "admin") {
+      if (currentUser?.is_admin !== 1 && route.data.roles === "admin") {
         this.router.navigate(["/"]);
         return false;
       }

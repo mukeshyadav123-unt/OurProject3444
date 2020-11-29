@@ -88,7 +88,13 @@
                 <a class="favourite-hover favourite-btn">
                   <i
                     class="fa fa-heart fa-2x favourite-select"
+                    (click)="addToFavourites(product)"
                     aria-hidden="true"
+                  ></i>
+                  <i
+                    class="fa fa-heart fa-2x"
+                    aria-hidden="true"
+                    (click)="deleteFromFavourites(product)"
                   ></i>
                 </a>
               </div>

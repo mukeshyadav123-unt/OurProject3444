@@ -5,6 +5,9 @@
 export const environment = {
   production: false,
   api: "http://localhost:8000",
+  accessKeyId: "AKIAJNNIIRTJ7CBDYKVA",
+  secretAccessKey: "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",
+  region: "eu-west-2",
 };
 
 /*

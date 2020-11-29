@@ -26,6 +26,10 @@ export class UserService {
       JSON.parse(localStorage.getItem("currentUser"))
     );
     this.currentUser = this.userSource.asObservable();
+    if (!this._CookieService.check("Token")) {
+      localStorage.removeItem("currentUser");
+      this.userSource.next(null);
+    }
   }
   public login(email: string, password: string): Observable<any> {
     return this._HttpClient
@@ -96,7 +100,6 @@ export class UserService {
     localStorage.removeItem("currentUser");
     this.userSource.next(null);
     this._CookieService.delete("Token");
-    console.log("hi");
     this.router.navigate(["/register"]);
   }
 }
