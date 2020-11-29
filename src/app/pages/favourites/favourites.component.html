@@ -1,9 +1,9 @@
-<div class="row m-0" *ngIf="cart?.dataRows">
+<div class="row m-0" *ngIf="favourites?.dataRows">
   <div class="col-md-12">
     <div class="card mt-4">
       <div class="card-header d-flex justify-content-md-between">
         <h4 class="card-title main-color font-weight-bold m-0">
-          {{ cart.title }}
+          {{ favourites.title }}
         </h4>
         <form>
           <div class="input-group no-border">
@@ -11,7 +11,7 @@
               type="text"
               value=""
               class="form-control"
-              placeholder="Search by {{ cart.searchField }}"
+              placeholder="Search by {{ favourites.searchField }}"
               (input)="onSearchChange($event.target.value)"
             />
             <div class="input-group-append">
@@ -26,52 +26,52 @@
         <div class="table-responsive">
           <table class="table">
             <thead class="text-primary">
-              <th *ngFor="let header of cart.headerRow" class="text-center">
+              <th
+                *ngFor="let header of favourites.headerRow"
+                class="text-center"
+              >
                 {{ header }}
               </th>
               <th
                 class="text-center"
-                *ngFor="let buttonName of cart.buttonName"
+                *ngFor="let buttonName of favourites.buttonName"
               >
                 {{ buttonName }}
               </th>
             </thead>
             <tbody>
-              <ng-container *ngIf="cart.dataRows">
+              <ng-container *ngIf="favourites.dataRows">
                 <tr *ngFor="let item of searchResult.dataRows; let i = index">
                   <td *ngFor="let key of searchResult.keys" class="text-center">
-                    {{ item[key] }}
+                    <a routerLink="{{ encodeId(item.id) }}">
+                      {{ item[key] }}
+                    </a>
                   </td>
-                  <td class="text-center" *ngIf="cart.buttonName">
+
+                  <td class="text-center" *ngIf="favourites.buttonName">
                     <button
                       class="btn main-btn"
                       id="{{ 'user' + i }}"
                       (click)="removeItem(i)"
-                      *ngIf="cart.buttonName[0]"
+                      *ngIf="favourites.buttonName[0]"
                     >
-                      {{ cart.buttonName[0] }}
+                      {{ favourites.buttonName[0] }}
                     </button>
                   </td>
-                  <td class="text-center" *ngIf="cart.buttonName">
+                  <td class="text-center" *ngIf="favourites.buttonName">
                     <button
                       class="btn btn-danger"
                       id="{{ 'user' + i }}"
                       (click)="removeItem(i)"
-                      *ngIf="cart.buttonName[1]"
+                      *ngIf="favourites.buttonName[1]"
                     >
-                      {{ cart.buttonName[1] }}
+                      {{ favourites.buttonName[1] }}
                     </button>
                   </td>
                 </tr>
               </ng-container>
             </tbody>
           </table>
-        </div>
-        <div class="card">
-          <div class="card-body">
-            <p><span>Total cost: </span>{{ cart.dataRows.cart_cost }}</p>
-            <button></button>
-          </div>
         </div>
       </div>
     </div>

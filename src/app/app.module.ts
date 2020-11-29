@@ -30,6 +30,8 @@ import { NavbarComponent } from "./fixed/navbar/navbar.component";
 import { HomeComponent } from "./pages/home/home.component";
 import { ManageProductComponent } from "./pages/manage-product/manage-product.component";
 import { CartComponent } from './pages/cart/cart.component';
+import { FavouritesComponent } from './pages/favourites/favourites.component';
+import { ProductComponent } from './pages/product/product.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +45,8 @@ import { CartComponent } from './pages/cart/cart.component';
     HomeComponent,
     ManageProductComponent,
     CartComponent,
+    FavouritesComponent,
+    ProductComponent,
   ],
   imports: [
     BrowserModule,

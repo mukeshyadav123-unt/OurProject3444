@@ -25,7 +25,7 @@
     </div>
   </div>
 </section>
-<section id="products" #products>
+<section id="products" #products *ngIf="productsList">
   <div class="description text-center">
     <h2>Products</h2>
   </div>
@@ -84,11 +84,19 @@
             <div
               class="d-flex justify-content-center align-items-center flex-row"
             >
-              <div class="favourite">
+              <div class="favourite" *ngIf="favourites">
                 <a class="favourite-hover favourite-btn">
                   <i
                     class="fa fa-heart fa-2x favourite-select"
+                    (click)="deleteFromFavourites(product)"
                     aria-hidden="true"
+                    *ngIf="isFavourite(product)"
+                  ></i>
+                  <i
+                    class="fa fa-heart-o fa-2x favourite-hover"
+                    aria-hidden="true"
+                    (click)="addToFavourites(product)"
+                    *ngIf="!isFavourite(product)"
                   ></i>
                 </a>
               </div>

@@ -10,6 +10,29 @@ import * as S3 from "aws-sdk/clients/s3";
 })
 export class ProductsService {
   constructor(private _HttpClient: HttpClient) {}
+  getFavourites(): Observable<any> {
+    return this._HttpClient.get(`${environment.api}/api/favorite`, {
+      responseType: "json",
+    });
+  }
+  addToFavourites(productId: any): Observable<any> {
+    return this._HttpClient.post(
+      `${environment.api}/api/favorite`,
+      {
+        product_id: productId,
+      },
+      { responseType: "json" }
+    );
+  }
+  deleteFromFavourites(productId: any): Observable<any> {
+    return this._HttpClient.delete(
+      `${environment.api}/api/favorite/${productId}`,
+      {
+        responseType: "json",
+      }
+    );
+  }
+
   getProducts(page: number = null): Observable<any> {
     let pageParameter: string = "";
     if (page) {
@@ -21,6 +44,11 @@ export class ProductsService {
         responseType: "json",
       }
     );
+  }
+  getProduct(id): Observable<any> {
+    return this._HttpClient.get(`${environment.api}/api/product/${id}`, {
+      responseType: "json",
+    });
   }
   addProduct(product: any): Observable<any> {
     return this._HttpClient.post(
@@ -47,9 +75,9 @@ export class ProductsService {
   public uploadImage(file, user): Promise<any> {
     return new Promise((resolve, reject) => {
       const bucket = new S3({
-        accessKeyId: "AKIAJNNIIRTJ7CBDYKVA",
-        secretAccessKey: "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",
-        region: "eu-west-2",
+        accessKeyId: environment.accessKeyId,
+        secretAccessKey: environment.secretAccessKey,
+        region: environment.region,
       });
 
       const params = {

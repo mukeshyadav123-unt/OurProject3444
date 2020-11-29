@@ -8,6 +8,8 @@ import { HomeComponent } from "./pages/home/home.component";
 import { AuthGuard } from "./_guard";
 import { ManageProductComponent } from "./pages/manage-product/manage-product.component";
 import { CartComponent } from "./pages/cart/cart.component";
+import { FavouritesComponent } from "./pages/favourites/favourites.component";
+import { ProductComponent } from "./pages/product/product.component";
 const routerOptions: ExtraOptions = {
   scrollPositionRestoration: "enabled",
   anchorScrolling: "enabled",
@@ -20,10 +22,16 @@ const routes: Routes = [
   //   redirectTo: "/",
   //   pathMatch: "full",
   // },
+  {
+    path: "favourites",
+    component: FavouritesComponent,
+  },
+  { path: "products/:id", component: ProductComponent },
   { path: "login", component: LoginComponent },
   { path: "register", component: RegisterComponent },
   { path: "cart", component: CartComponent, canActivate: [AuthGuard] },
   { path: "", component: HomeComponent, canActivate: [AuthGuard] },
+
   {
     path: "manage-products",
     component: ManageProductComponent,
