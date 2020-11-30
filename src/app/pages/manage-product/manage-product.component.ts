@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from "@angular/core";
-import { NgForm } from "@angular/forms";
+import { NgForm, FormsModule } from "@angular/forms";
 import { TableData } from "src/app/interfaces/table-data";
 import { CategoryService } from "src/app/services/category.service";
 import { ProductsService } from "src/app/services/products.service";
@@ -10,7 +10,8 @@ import { ProductsService } from "src/app/services/products.service";
   styleUrls: ["./manage-product.component.scss"],
 })
 export class ManageProductComponent implements OnInit {
-  categories = [];
+  categories: TableData;
+  category = "";
   product = {
     name: "",
     description: "",
@@ -42,9 +43,31 @@ export class ManageProductComponent implements OnInit {
   }
 
   getCategories(page: number = null) {
+    this.categories = null;
     this._CategoryService.getCategories(page).subscribe((categories) => {
-      this.categories = categories.data;
+      this.categories = {
+        headerRow: ["Name"],
+        keys: ["name"],
+        dataRows: categories,
+        title: "Categories",
+        buttonName: ["Delete"],
+        searchField: "name",
+      };
     });
+  }
+  deleteClickedCategory(i) {
+    if (
+      confirm(
+        `Are you sure you want to delete ${this.categories.dataRows["data"][i].name}?`
+      )
+    ) {
+      this._CategoryService
+        .deleteCategory(this.categories.dataRows["data"][i].id)
+        .subscribe((res) => {
+          this.getCategories();
+          alert(res.message);
+        });
+    }
   }
   deleteClickedProduct(i) {
     if (
@@ -69,9 +92,22 @@ export class ManageProductComponent implements OnInit {
       (res) => {
         alert("Product added");
         form.reset();
+        this.getProducts();
       },
       (err) => {
         alert("Couldn't add product.");
+      }
+    );
+  }
+  addCategory(form: NgForm) {
+    this._CategoryService.addCategory(this.category).subscribe(
+      (res) => {
+        alert("Category added");
+        form.reset();
+        this.getCategories();
+      },
+      (err) => {
+        alert("Couldn't add category.");
       }
     );
   }

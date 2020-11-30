@@ -19,11 +19,11 @@ export class UsersComponent implements OnInit {
   deleteClickedUser(index) {
     if (
       confirm(
-        `Are you sure you want to delete ${this.users.dataRows[index].name}?`
+        `Are you sure you want to delete ${this.users.dataRows.data[index].name}?`
       )
     ) {
       this._AdminService
-        .deleteUser(this.users.dataRows[index].id)
+        .deleteUser(this.users.dataRows.data[index].id)
         .subscribe((res) => {
           this.getUsers();
           alert(res);
@@ -39,7 +39,7 @@ export class UsersComponent implements OnInit {
   makeAdminClicked(index) {
     let adminPass = prompt("Enter your password:");
     this._AdminService
-      .makeUserAdmin(this.users.dataRows[index].id, adminPass)
+      .makeUserAdmin(this.users.dataRows.data[index].id, adminPass)
       .subscribe(
         (res) => {
           this.getUsers();
@@ -47,7 +47,7 @@ export class UsersComponent implements OnInit {
           alert(res.message);
         },
         (err) => {
-          console.log(err);
+          alert(err.error);
         }
       );
   }

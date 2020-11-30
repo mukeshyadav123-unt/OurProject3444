@@ -2,11 +2,11 @@
   <div class="row m-auto">
     <div class="col-lg-5 col-md-8 col-sm-12 m-auto">
       <div class="card">
-        <div class="img-container">
+        <div class="img-container w-100 p-2">
           <img
-            class="card-img-top img-fluid m-auto"
+            class="card-img-top img-fluid w-100"
             *ngIf="product.images[0]?.url"
-            [src]="product.images[0]"
+            [src]="product.images[0].url"
           />
         </div>
 

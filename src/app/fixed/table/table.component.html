@@ -76,6 +76,7 @@
                   </td>
                 </tr>
                 <pagination-controls
+                  *ngIf="data.dataRows.per_page"
                   (pageChange)="handlePageChange($event)"
                   previousLabel="Prev"
                   nextLabel="Next"

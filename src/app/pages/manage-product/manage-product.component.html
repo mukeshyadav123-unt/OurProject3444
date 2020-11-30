@@ -1,126 +1,196 @@
-<section id="addProduct">
-  <div class="container">
-    <div class="product-form w-100">
-      <mat-card class="w-100">
-        <mat-card-title class="mb-4 main-color">Add a product</mat-card-title>
-        <form
-          class="d-flex justify-content-center flex-column"
-          (ngSubmit)="addProduct(addForm)"
-          #addForm="ngForm"
-        >
-          <div class="row">
-            <div class="col-md-4">
-              <mat-form-field appearance="fill" class="w-100">
-                <mat-label>Name</mat-label>
-                <input
-                  matInput
-                  placeholder="Name"
-                  [(ngModel)]="product.name"
-                  type="text"
-                  minlength="3"
-                  maxlength="32"
-                  name="name"
-                  required
-                  #name
-                />
-              </mat-form-field>
-            </div>
-            <div class="col-md-4">
-              <mat-form-field appearance="fill" class="w-100">
-                <mat-label>Category</mat-label>
-                <mat-select
-                  required
-                  name="category"
-                  [(ngModel)]="product.category_id"
-                >
-                  <mat-option
-                    value="{{ category.id }}"
-                    *ngFor="let category of categories"
+<mat-tab-group class="container mt-5">
+  <mat-tab label="Products">
+    <section id="addProduct">
+      <div class="container">
+        <div class="product-form w-100">
+          <mat-card class="w-100">
+            <mat-card-title class="mb-4 main-color"
+              >Add a product</mat-card-title
+            >
+            <form
+              class="d-flex justify-content-center flex-column"
+              (ngSubmit)="addProduct(addForm)"
+              #addForm="ngForm"
+            >
+              <div class="row">
+                <div class="col-md-4">
+                  <mat-form-field appearance="fill" class="w-100">
+                    <mat-label>Name</mat-label>
+                    <input
+                      matInput
+                      placeholder="Name"
+                      [(ngModel)]="product.name"
+                      type="text"
+                      minlength="3"
+                      maxlength="32"
+                      name="name"
+                      required
+                      #name
+                    />
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field
+                    appearance="fill"
+                    class="w-100"
+                    *ngIf="categories?.dataRows"
                   >
-                    {{ category.name }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-            <div class="col-md-4">
-              <mat-form-field appearance="fill" class="w-100">
-                <mat-label>Price</mat-label>
-                <input
-                  matInput
-                  placeholder="Price"
-                  [(ngModel)]="product.cost"
-                  type="number"
-                  minlength="3"
-                  maxlength="32"
-                  name="cost"
-                  required
-                  #cost
-                />
-              </mat-form-field>
-            </div>
-            <div class="col-md-4">
-              <mat-form-field appearance="fill" class="w-100">
-                <mat-label>Quantity</mat-label>
-                <input
-                  matInput
-                  placeholder="Quantity"
-                  [(ngModel)]="product.quantity"
-                  type="number"
-                  name="quantity"
-                  required
-                  #quantity
-                />
-              </mat-form-field>
-            </div>
-            <div class="col-md-4">
-              <mat-form-field appearance="fill" class="w-100">
-                <mat-label>Description</mat-label>
-                <textarea
-                  matInput
-                  placeholder="Decscription"
-                  [(ngModel)]="product.description"
-                  type="text"
-                  name="description"
-                  required
-                  #description
-                ></textarea>
-              </mat-form-field>
-            </div>
-            <div class="col-md-4 d-flex align-items-center mat-form-padding">
-              <input
-                #imageInput
-                hidden="true"
-                type="file"
-                onclick="this.value=null"
-                (change)="imageInputChange($event)"
-                accept="image/*"
-              />
-              <a mat-flat-button class="img-btn" (click)="imageInput.click()">
-                Choose Product Image
-                <i class="fa fa-file-image-o" aria-hidden="true"></i>
-              </a>
-            </div>
-          </div>
-          <div class="row w-100 d-flex justify-content-end">
-            <div>
-              <button
-                mat-raised-button
-                class="btn add-btn"
-                type="submit"
-                [disabled]="!addForm.form.valid"
-              >
-                Add
-              </button>
-            </div>
-          </div>
-        </form>
-      </mat-card>
-      <table-cmp
-        *ngIf="products"
-        [data]="products"
-        (actionClicked)="deleteClickedProduct($event)"
-        (pageChanged)="pageChanged($event)"
-      ></table-cmp>
-    </div>
-  </div>
-</section>
+                    <mat-label>Category</mat-label>
+                    <mat-select
+                      required
+                      name="category"
+                      [(ngModel)]="product.category_id"
+                    >
+                      <mat-option
+                        value="{{ category.id }}"
+                        *ngFor="let category of categories.dataRows.data"
+                      >
+                        {{ category.name }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field appearance="fill" class="w-100">
+                    <mat-label>Price</mat-label>
+                    <input
+                      matInput
+                      placeholder="Price"
+                      [(ngModel)]="product.cost"
+                      type="number"
+                      minlength="3"
+                      maxlength="32"
+                      name="cost"
+                      required
+                      #cost
+                    />
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field appearance="fill" class="w-100">
+                    <mat-label>Quantity</mat-label>
+                    <input
+                      matInput
+                      placeholder="Quantity"
+                      [(ngModel)]="product.quantity"
+                      type="number"
+                      name="quantity"
+                      required
+                      #quantity
+                    />
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field appearance="fill" class="w-100">
+                    <mat-label>Description</mat-label>
+                    <textarea
+                      matInput
+                      placeholder="Decscription"
+                      [(ngModel)]="product.description"
+                      type="text"
+                      name="description"
+                      required
+                      #description
+                    ></textarea>
+                  </mat-form-field>
+                </div>
+                <div
+                  class="col-md-4 d-flex align-items-center mat-form-padding"
+                >
+                  <input
+                    #imageInput
+                    hidden="true"
+                    type="file"
+                    onclick="this.value=null"
+                    (change)="imageInputChange($event)"
+                    accept="image/*"
+                  />
+                  <a
+                    mat-flat-button
+                    class="img-btn"
+                    (click)="imageInput.click()"
+                  >
+                    Choose Product Image
+                    <i class="fa fa-file-image-o" aria-hidden="true"></i>
+                  </a>
+                </div>
+              </div>
+              <div class="row w-100 d-flex justify-content-end">
+                <div>
+                  <button
+                    mat-raised-button
+                    class="btn add-btn"
+                    type="submit"
+                    [disabled]="!addForm.form.valid"
+                  >
+                    Add
+                  </button>
+                </div>
+              </div>
+            </form>
+          </mat-card>
+          <table-cmp
+            *ngIf="products"
+            [data]="products"
+            (actionClicked)="deleteClickedProduct($event)"
+            (pageChanged)="pageChanged($event)"
+          ></table-cmp>
+        </div>
+      </div>
+    </section>
+  </mat-tab>
+  <mat-tab label="Categories"
+    ><section id="addProduct">
+      <div class="container">
+        <div class="product-form w-100">
+          <mat-card class="w-100">
+            <mat-card-title class="mb-4 main-color"
+              >Add a Category</mat-card-title
+            >
+            <form
+              class="d-flex justify-content-center flex-column"
+              (ngSubmit)="addCategory(addCategoryForm)"
+              #addCategoryForm="ngForm"
+            >
+              <div class="row">
+                <div class="col-md-4">
+                  <mat-form-field appearance="fill" class="w-100">
+                    <mat-label>Name</mat-label>
+                    <input
+                      matInput
+                      placeholder="Name"
+                      [(ngModel)]="category"
+                      type="text"
+                      minlength="3"
+                      maxlength="32"
+                      name="name"
+                      required
+                      #name
+                    />
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row w-100 d-flex justify-content-end">
+                <div>
+                  <button
+                    mat-raised-button
+                    class="btn add-btn"
+                    type="submit"
+                    [disabled]="!addCategoryForm.form.valid"
+                  >
+                    Add
+                  </button>
+                </div>
+              </div>
+            </form>
+          </mat-card>
+          <table-cmp
+            *ngIf="categories"
+            [data]="categories"
+            (actionClicked)="deleteClickedCategory($event)"
+          ></table-cmp>
+        </div>
+      </div>
+    </section>
+  </mat-tab>
+</mat-tab-group>
