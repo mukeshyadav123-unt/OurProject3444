@@ -25,8 +25,13 @@ const routes: Routes = [
   {
     path: "favourites",
     component: FavouritesComponent,
+    canActivate: [AuthGuard],
   },
-  { path: "products/:id", component: ProductComponent },
+  {
+    path: "products/:id",
+    component: ProductComponent,
+    canActivate: [AuthGuard],
+  },
   { path: "login", component: LoginComponent },
   { path: "register", component: RegisterComponent },
   { path: "cart", component: CartComponent, canActivate: [AuthGuard] },

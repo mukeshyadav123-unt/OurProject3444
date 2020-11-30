@@ -21,7 +21,6 @@ export class HomeComponent implements OnInit {
   ) {
     this.getProducts();
     this.getCategories();
-    this.getFavourites();
   }
   categoryChanged(e) {
     if (e.value) {
@@ -36,12 +35,20 @@ export class HomeComponent implements OnInit {
     this.productsList = null;
     this._ProductsService.getProducts(page).subscribe((products) => {
       this.productsList = products.data;
-      this.categorisedProducts = products.data.data;
+      this.getFavourites();
     });
   }
   getFavourites() {
     this._ProductsService.getFavourites().subscribe((res) => {
       this.favourites = res.user_with_products.favorite_products;
+      this.favourites.forEach((fav) => {
+        this.productsList.data.forEach((prod) => {
+          if (fav.id == prod.id) {
+            prod.isFavourite = true;
+          }
+        });
+      });
+      this.categorisedProducts = this.productsList.data;
     });
   }
   getCategories(page: number = null) {
@@ -52,21 +59,18 @@ export class HomeComponent implements OnInit {
 
   addToFavourites(product) {
     this._ProductsService.addToFavourites(product.id).subscribe((res) => {
+      product.isFavourite = true;
       alert(product.name + " added to favourites.");
     });
   }
+  encodeId(id) {
+    return "/products/" + btoa(id);
+  }
   deleteFromFavourites(product) {
-    this._ProductsService.deleteProduct(product.id).subscribe((res) => {
+    this._ProductsService.deleteFromFavourites(product.id).subscribe((res) => {
+      product.isFavourite = false;
       alert(product.name + " deleted from favourites.");
     });
-  }
-  isFavourite(product) {
-    this.favourites.forEach((fav) => {
-      if (fav.id == product.id) {
-        return true;
-      }
-    });
-    return false;
   }
   addToCart(product) {
     this._CartService.addToCart(product.id, 1).subscribe((res) => {
@@ -74,7 +78,6 @@ export class HomeComponent implements OnInit {
     });
   }
   handlePageChange(p) {
-    console.log(this.productsList);
     this.getProducts(p);
   }
   ngOnInit(): void {}

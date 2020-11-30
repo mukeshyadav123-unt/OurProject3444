@@ -11,8 +11,13 @@
         </div>
 
         <div class="card-body">
-          <h3 class="card-title">{{ product.name }}</h3>
-          <h5 class="card-subtitle">{{ product.cost }}</h5>
+          <h2 class="card-title m-0 font-weight-bolder">{{ product.name }}</h2>
+          <h4 class="card-subtitle m-0 font-weight-bold">
+            {{ product.cost }}$
+          </h4>
+          <h5 class="card-subtitle text-muted">
+            In stock: {{ product.in_stock }}
+          </h5>
           <p class="card-text">
             {{ product.description }}
           </p>

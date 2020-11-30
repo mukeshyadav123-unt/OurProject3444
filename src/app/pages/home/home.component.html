@@ -67,7 +67,7 @@
             />
           </div>
 
-          <a
+          <a routerLink="{{ encodeId(product.id) }}"
             ><h3 class="text-center">{{ product.name }}</h3></a
           >
           <div class="rating text-center">
@@ -90,13 +90,13 @@
                     class="fa fa-heart fa-2x favourite-select"
                     (click)="deleteFromFavourites(product)"
                     aria-hidden="true"
-                    *ngIf="isFavourite(product)"
+                    *ngIf="product.isFavourite"
                   ></i>
                   <i
                     class="fa fa-heart-o fa-2x favourite-hover"
                     aria-hidden="true"
                     (click)="addToFavourites(product)"
-                    *ngIf="!isFavourite(product)"
+                    *ngIf="!product.isFavourite"
                   ></i>
                 </a>
               </div>
