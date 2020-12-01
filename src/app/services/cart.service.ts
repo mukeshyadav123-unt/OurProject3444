@@ -18,6 +18,11 @@ export class CartService {
       { responseType: "json" }
     );
   }
+  clearCart() {
+    return this._HttpClient.get(`${environment.api}/api/order/clear`, {
+      responseType: "json",
+    });
+  }
   showCart(page: number = null): Observable<any> {
     let pageParameter: string = "";
     if (page) {

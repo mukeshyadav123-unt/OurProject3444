@@ -17,6 +17,29 @@ export class AdminService {
       responseType: "json",
     });
   }
+  getOrders(page: number = null): Observable<any> {
+    let pageParameter: string = "";
+    if (page) {
+      pageParameter += "?page=" + page;
+    }
+    return this._HttpClient.get(
+      `${environment.api}/api/order/admin${pageParameter}`,
+      {
+        responseType: "json",
+      }
+    );
+  }
+  updateOrder(id: number, state: string) {
+    return this._HttpClient.put(
+      `${environment.api}/api/order/admin/${id}`,
+      {
+        order_state: state,
+      },
+      {
+        responseType: "json",
+      }
+    );
+  }
   getAdmins(page: number = null): Observable<any> {
     let pageParameter: string = "";
     if (page) {

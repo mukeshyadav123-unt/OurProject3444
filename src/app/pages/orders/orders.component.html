@@ -1,0 +1,89 @@
+<div class="row m-0" *ngIf="orders?.dataRows">
+  <div class="col-md-12">
+    <div class="card mt-4">
+      <div class="card-header d-flex justify-content-md-between">
+        <h4 class="card-title main-color font-weight-bold mb-0 mr-2">
+          {{ orders.title }}
+        </h4>
+        <form>
+          <div class="input-group no-border">
+            <input
+              type="text"
+              value=""
+              class="form-control"
+              placeholder="Search by {{ orders.searchField }}"
+              (input)="onSearchChange($event.target.value)"
+            />
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <i class="fa fa-search" aria-hidden="true"></i>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table">
+            <thead class="text-primary">
+              <th *ngFor="let header of orders.headerRow" class="text-center">
+                {{ header }}
+              </th>
+              <th
+                class="text-center"
+                *ngFor="let buttonName of orders.buttonName"
+              >
+                {{ buttonName }}
+              </th>
+            </thead>
+            <tbody>
+              <ng-container *ngIf="orders.dataRows">
+                <tr
+                  *ngFor="
+                    let item of searchResult.dataRows
+                      | paginate
+                        : {
+                            id: orders.title,
+                            itemsPerPage: orders.dataRows.per_page,
+                            currentPage: orders.dataRows.current_page,
+                            totalItems: orders.dataRows.total
+                          };
+                    let i = index
+                  "
+                >
+                  <td *ngFor="let key of searchResult.keys" class="text-center">
+                    {{
+                      key == "created_at"
+                        ? (item[key] | date: "dd-MMM-yy")
+                        : item[key]
+                    }}
+                  </td>
+
+                  <td class="text-center" *ngIf="orders.buttonName">
+                    <button
+                      class="btn main-btn"
+                      id="{{ 'user' + i }}"
+                      (click)="cancelOrder(i)"
+                      *ngIf="orders.buttonName[0]"
+                      [disabled]="item.order_state !== 'pending'"
+                    >
+                      {{ orders.buttonName[0] }}
+                    </button>
+                  </td>
+                </tr>
+                <pagination-controls
+                  *ngIf="orders.dataRows.per_page"
+                  (pageChange)="pageChanged($event)"
+                  previousLabel="Prev"
+                  nextLabel="Next"
+                  id="{{ orders.title }}"
+                  autoHide="true"
+                ></pagination-controls>
+              </ng-container>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

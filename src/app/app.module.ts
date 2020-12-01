@@ -13,6 +13,7 @@ import { MatTabsModule } from "@angular/material/tabs";
 import { NgxPaginationModule } from "ngx-pagination";
 import { MatSelectModule } from "@angular/material/select";
 import { CommonModule } from "@angular/common";
+import { MatStepperModule } from "@angular/material/stepper";
 
 //providers
 import { JwtInterceptor } from "./_helpers/jwt.interceptor";
@@ -33,6 +34,8 @@ import { ManageProductComponent } from "./pages/manage-product/manage-product.co
 import { CartComponent } from "./pages/cart/cart.component";
 import { FavouritesComponent } from "./pages/favourites/favourites.component";
 import { ProductComponent } from "./pages/product/product.component";
+import { ManageOrdersComponent } from "./pages/manage-orders/manage-orders.component";
+import { OrdersComponent } from "./pages/orders/orders.component";
 
 @NgModule({
   declarations: [
@@ -48,9 +51,12 @@ import { ProductComponent } from "./pages/product/product.component";
     CartComponent,
     FavouritesComponent,
     ProductComponent,
+    ManageOrdersComponent,
+    OrdersComponent,
   ],
   imports: [
     BrowserModule,
+    MatStepperModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     CommonModule,

@@ -10,6 +10,8 @@ import { ManageProductComponent } from "./pages/manage-product/manage-product.co
 import { CartComponent } from "./pages/cart/cart.component";
 import { FavouritesComponent } from "./pages/favourites/favourites.component";
 import { ProductComponent } from "./pages/product/product.component";
+import { ManageOrdersComponent } from "./pages/manage-orders/manage-orders.component";
+import { OrdersComponent } from "./pages/orders/orders.component";
 const routerOptions: ExtraOptions = {
   scrollPositionRestoration: "enabled",
   anchorScrolling: "enabled",
@@ -53,6 +55,17 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     component: UsersComponent,
     data: { roles: "admin" },
+  },
+  {
+    path: "manage-orders",
+    component: ManageOrdersComponent,
+    canActivate: [AuthGuard],
+    data: { roles: "admin" },
+  },
+  {
+    path: "orders",
+    component: OrdersComponent,
+    canActivate: [AuthGuard],
   },
 ];
 

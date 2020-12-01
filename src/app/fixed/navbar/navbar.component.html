@@ -26,6 +26,11 @@
           >Manage products <span class="sr-only">(current)</span></a
         >
       </li>
+      <li class="nav-item active" *ngIf="activeUser?.is_admin">
+        <a class="nav-link" [routerLink]="['/manage-orders']"
+          >Manage orders <span class="sr-only">(current)</span></a
+        >
+      </li>
 
       <li class="nav-item active" *ngIf="activeUser?.is_admin">
         <a class="nav-link" [routerLink]="['/users']"
@@ -59,6 +64,8 @@
           <a class="dropdown-item" [routerLink]="['/profile']">Profile</a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" [routerLink]="['/favourites']">Favourites</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" [routerLink]="['/orders']">Orders</a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="#" (click)="logout()">Logout</a>
         </div>
