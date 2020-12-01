@@ -7,6 +7,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\FavoriteProductController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\OrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,6 +60,17 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
         Route::post("", [CartController::class, 'store']);
         Route::delete("{product_id}", [CartController::class, 'destroy']);
 
+    });
+    Route::group(['prefix' => 'order'], function () {
+        Route::get("", [OrderController::class, 'index']);
+        Route::post("", [OrderController::class, 'store']);
+        Route::delete("{order}", [OrderController::class, 'cancel']);
+
+        Route::group(['prefix' => 'admin'], function () {
+            Route::get("", [OrderController::class, 'allOrders']);
+            Route::put("{order}", [OrderController::class, 'update']);
+            Route::delete("{order}", [OrderController::class, 'destroy']);
+        });
     });
     Route::group(['prefix' => 'favorite'], function () {
         Route::get("", [FavoriteProductController::class, 'index']);

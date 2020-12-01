@@ -19,14 +19,14 @@ class CreateOrdersTable extends Migration
 
             $table->string('order_state');
             $table->text('delivery_address');
+            $table->integer('value');
 
             $table->timestamps();
+            $table
+                ->foreign('user_id')
+                ->references('id')->on('users')
+                ->onDelete('cascade');
 
-
-            // $table
-            //     ->foreign('user_id')
-            //     ->references('id')->on('users')
-            //     ->onDelete('cascade');
         });
     }
 
