@@ -98,7 +98,7 @@ class AdminController extends Controller
     {
         if (!$user->is_admin) {
             $user->delete();
-            return "user deleted successfully";
+            return ["user deleted successfully"];
         } else {
             return response("You can't delete other Admins", 400) ;
         }

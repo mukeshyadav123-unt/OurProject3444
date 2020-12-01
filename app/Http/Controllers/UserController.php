@@ -12,20 +12,20 @@ class UserController extends Controller
 {
     public function login()
     {
-        $user= User::where('email', request()->email)->first();
+        $user = User::where('email', request()->email)->first();
 
         if (!$user || !Hash::check(request()->password, $user->password)) {
             return response([
-                    'message' => ['These credentials do not match our records.']
-                ], 404);
+                'message' => ['These credentials do not match our records.']
+            ], 404);
         }
 
         $token = $user->createToken('my-app-token')->plainTextToken;
 
         $response = [
-                'user' => $user,
-                'token' => $token
-            ];
+            'user' => $user,
+            'token' => $token
+        ];
 
         return response($response, 201);
     }
@@ -45,7 +45,9 @@ class UserController extends Controller
         $authed_user->tokens()->delete();
         $authed_user->delete();
 
-        return "Your account has been deleted";
+        return response()->json([
+            'message' =>  "Your account has been deleted"
+        ]);
     }
 
     public function update()
@@ -54,8 +56,8 @@ class UserController extends Controller
             'current_password' => 'required',
             'email' => 'email',
             'name' => 'min:5',
-            'new_password' => ['min:6','same:new_password_confirmation'],
-            'new_password_confirmation' => ['min:6'  , 'required_with:new_password']
+            'new_password' => ['min:6', 'same:new_password_confirmation'],
+            'new_password_confirmation' => ['min:6', 'required_with:new_password']
         ]);
 
         $authed_user = Auth::user();
@@ -78,11 +80,11 @@ class UserController extends Controller
         }
 
         if (request()->name) {
-            $authed_user->name =request()->name;
+            $authed_user->name = request()->name;
         }
         $authed_user->save();
         return [
-           'message' => "Your account has been updated",
+            'message' => "Your account has been updated",
             'user' => $authed_user
         ];
     }
@@ -91,32 +93,32 @@ class UserController extends Controller
     {
 
         request()->validate([
-            'name' => ['required' , 'min:3' , 'max:100'],
-            'email' =>['required' , 'email'],
-            'password'         => ['required' , 'string' , 'min:8' ],
-            'password_confirm' => ['required','same:password'],
+            'name' => ['required', 'min:3', 'max:100'],
+            'email' => ['required', 'email'],
+            'password'         => ['required', 'string', 'min:8'],
+            'password_confirm' => ['required', 'same:password'],
 
         ]);
 
 
-        $user= User::where('email', request()->email)->first();
+        $user = User::where('email', request()->email)->first();
         if ($user) {
             return response([
-                'message' => ['email already exist.']
-            ], 401);
+                'message' => 'email already exist.'
+            ], 400);
         }
         $user = User::create([
             'name' => request()->name,
             'email' => request()->email,
-            'password' =>Hash::make(request()->password),
+            'password' => Hash::make(request()->password),
         ]);
 
         $token = $user->createToken('my-app-token')->plainTextToken;
 
         $response = [
-                'user' => $user,
-                'token' => $token
-            ];
+            'user' => $user,
+            'token' => $token
+        ];
 
         return response($response, 201);
     }

@@ -26,6 +26,7 @@ class ProductFactory extends Factory
             'name' =>  $this->faker->word,
             'description' => $this->faker->text,
             'cost' => $this->faker->biasedNumberBetween(1, 1000),
+            'in_stock' =>  $this->faker->biasedNumberBetween(1, 1000),
             'category_id' => Category::inRandomOrder()->first()
         ];
     }
