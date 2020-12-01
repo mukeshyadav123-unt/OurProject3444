@@ -32,6 +32,11 @@ export class RegisterComponent implements OnInit {
         form.value.password,
         form.value.rePassword
       )
-      .subscribe((res) => {});
+      .subscribe(
+        (res) => {},
+        (err) => {
+          alert(JSON.parse(err.error).message);
+        }
+      );
   }
 }
