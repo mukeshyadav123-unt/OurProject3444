@@ -122,4 +122,5 @@ class UserController extends Controller
 
         return response($response, 201);
     }
+
 }
