@@ -10,29 +10,25 @@ use Illuminate\Support\Facades\Hash;
 
 class ProductController extends Controller
 {
-//   
+    //
 
     public function index()
     {
-        request()->validate([
-            'category' => 'min:3'
-        ]);
 
         $category = request()->category;
         return response()->json([
             'message' => '',
-            'data' => Product::
-            when(
-                $category,
-                function ($query, $category) {
-                    $query->whereHas(
-                        'category',
-                        function ($query) use ($category) {
-                            $query->where('name', '=', $category);
-                        }
-                    );
-                }
-            )->where('in_stock', '>', 0)
+            'data' => Product::when(
+                    $category,
+                    function ($query, $category) {
+                        $query->whereHas(
+                            'category',
+                            function ($query) use ($category) {
+                                $query->where('name', '=', $category);
+                            }
+                        );
+                    }
+                )->where('in_stock', '>', 0)
                 ->with(['images', 'category'])
                 ->paginate(15)
         ]);
