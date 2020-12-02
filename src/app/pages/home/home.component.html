@@ -34,9 +34,12 @@
       <div class="classes container d-flex align-items-center">
         <mat-form-field appearance="fill" class="p-0">
           <mat-label>Category</mat-label>
-          <mat-select (selectionChange)="categoryChanged($event)">
+          <mat-select
+            (selectionChange)="categoryChanged($event)"
+            [value]="selectedCategory"
+          >
             <mat-option
-              value="{{ category.id }}"
+              value="{{ category.name }}"
               *ngFor="let category of categories"
             >
               {{ category.name }}
@@ -49,7 +52,7 @@
       <div
         class="col-lg-3 col-md-6 col-sm-6"
         *ngFor="
-          let product of categorisedProducts
+          let product of productsList.data
             | paginate
               : {
                   itemsPerPage: productsList.per_page,
@@ -79,7 +82,7 @@
 
             <i class="fa fa-star-half-o" aria-hidden="true" *ngIf="true"></i>
           </div>
-          <p class="text-center main-color">{{ product.cost }}</p>
+          <p class="text-center main-color">${{ product.cost }}</p>
           <div class="actions mb-3">
             <div
               class="d-flex justify-content-center align-items-center flex-row"

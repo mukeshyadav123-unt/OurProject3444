@@ -33,13 +33,15 @@ export class ProductsService {
     );
   }
 
-  getProducts(page: number = null): Observable<any> {
+  getProducts(page: number = null, category: string = null): Observable<any> {
     let pageParameter: string = "";
-    if (page) {
-      pageParameter += "?page=" + page;
-    }
-    return this._HttpClient.get(
-      `${environment.api}/api/product${pageParameter}`,
+    if (page) pageParameter += "?page=" + page;
+
+    return this._HttpClient.post(
+      `${environment.api}/api/product/index${pageParameter}`,
+      {
+        category: category || "",
+      },
       {
         responseType: "json",
       }

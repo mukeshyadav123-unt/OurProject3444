@@ -13,7 +13,7 @@ export class HomeComponent implements OnInit {
   productsList: any = null;
   categories: any = null;
   favourites: any = null;
-  categorisedProducts: any;
+  selectedCategory: string;
   constructor(
     private _ProductsService: ProductsService,
     private _CartService: CartService,
@@ -24,16 +24,15 @@ export class HomeComponent implements OnInit {
   }
   categoryChanged(e) {
     if (e.value) {
-      this.categorisedProducts = this.productsList.data.filter(
-        (product) => product["category_id"] == e.value
-      );
-    } else {
-      this.categorisedProducts = this.productsList.data;
+      this.selectedCategory = e.value;
+      this.getProducts(null, this.selectedCategory);
     }
   }
-  getProducts(page: number = null) {
+  getProducts(page: number = null, category: string = null) {
     this.productsList = null;
-    this._ProductsService.getProducts(page).subscribe((products) => {
+    this._ProductsService.getProducts(page, category).subscribe((products) => {
+      console.log(products);
+
       this.productsList = products.data;
       this.getFavourites();
     });
@@ -48,7 +47,6 @@ export class HomeComponent implements OnInit {
           }
         });
       });
-      this.categorisedProducts = this.productsList.data;
     });
   }
   getCategories(page: number = null) {
@@ -78,7 +76,7 @@ export class HomeComponent implements OnInit {
     });
   }
   handlePageChange(p) {
-    this.getProducts(p);
+    this.getProducts(p, this.selectedCategory);
   }
   ngOnInit(): void {}
 }
