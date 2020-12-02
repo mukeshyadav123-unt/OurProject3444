@@ -45,26 +45,28 @@ class OrderController extends Controller
             ]
         );
         $totalCost = $this->getCartCost();
+        abort_unless($totalCost, 400);
 
-        Stripe::setApiKey('pk_test_51HgvmgFAfdf2YRBxWEgZ0HKGbT5Olc7uYMzVO0180G3pTwgEP94LXYL2j0j1uGpBODyo2PE9gdtFBtemkpchcP9o00VvztUkmp');
+        Stripe::setApiKey('sk_test_51HgvmgFAfdf2YRBxum24eeWWRWSsu07km9JCxfeyNlmoxDbfeXT0dycLdddjbFTjgU8Bb15kCLf1UhR4o0CgfMNu00vtYXmiCA');
 
-        // Token is created using Stripe Checkout or Elements!
-        // Get the payment token ID submitted by the form:
+
+        $clientSecret = null;
         try {
 
-            Charge::create([
-                'amount' => $totalCost,
+            $paymentIntent = \Stripe\PaymentIntent::create([
+                'amount' => $totalCost* 100,
                 'currency' => 'usd',
-                'description' => 'payment for order',
-                'source' => request()->stripeToken,
             ]);
-        }catch (Exception $e)
-        {
-           abort(400, "Error in payment");
+
+            $clientSecret = $paymentIntent->client_secret;
+
+        } catch (\Exception $e) {
+
+            abort(500,  $e->getMessage());
         }
 
-
         $user = Auth::user();
+
         $order = Order::create([
             'user_id' => $user->id,
             'order_state' => 'pending',
@@ -76,17 +78,22 @@ class OrderController extends Controller
         });
         // add product to the order
         $order->products()->attach($cart);
-        // delete elemets again from the cart
-        Cart::where('user_id', $user->id)->delete();
 
         return response()->json([
             'message' => 'order created successfully',
-            'data' => $order
+            'client_secret' => $clientSecret
         ]);
 
     }
 
+    public function deleteCart()
+    {
+        $user = Auth::user();
+        // delete elemets again from the cart
 
+        Cart::where('user_id', $user->id)->delete();
+        return response([ 'message'=>'deleted']  , 200);
+    }
     public function show(Order $order)
     {
         return response()->json([
@@ -139,7 +146,7 @@ class OrderController extends Controller
         $pureProducts = User::
         select(['id'])->
         where('id', $authed->id)->with(['cartProducts:user_id,product_id,amount', 'products'])->first();
-
+//        abort_if($pureProducts->count, );
 
         $pureProducts->cart_cost = 0;
         foreach ($pureProducts->products as $product) {
