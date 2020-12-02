@@ -10,20 +10,7 @@ use Illuminate\Support\Facades\Hash;
 
 class ProductController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware(function ($request, $next) {
-
-            //skip validation for get requests
-            if ($request->isMethod('get')) {
-                return $next($request);
-            }
-            if ($this->validateAdmin()) {
-                return $this->validateAdmin();
-            }
-            return $next($request);
-        });
-    }
+//   
 
     public function index()
     {
