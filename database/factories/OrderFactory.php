@@ -3,15 +3,12 @@
 namespace Database\Factories;
 
 use App\Models\Order;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Carbon;
 
 class OrderFactory extends Factory
 {
-    /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string
-     */
     protected $model = Order::class;
 
     /**
@@ -22,7 +19,13 @@ class OrderFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'order_state' => $this->faker->randomElement(['pending','canceled','accepted','denied','delivered']),
+            'delivery_address' => $this->faker->address,
+            'value' => $this->faker->randomNumber(2),
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+
+            'user_id' => 1
         ];
     }
 }
