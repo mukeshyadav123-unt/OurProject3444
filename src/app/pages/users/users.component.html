@@ -1,0 +1,18 @@
+<mat-tab-group class="container mt-5">
+  <mat-tab label="Users"
+    ><table-cmp
+      *ngIf="users"
+      [data]="users"
+      (deleteClicked)="deleteClickedUser($event)"
+      (actionClicked)="makeAdminClicked($event)"
+      (pageChanged)="pageChanged($event)"
+    ></table-cmp>
+  </mat-tab>
+  <mat-tab label="Admins"
+    ><table-cmp
+      *ngIf="admins"
+      [data]="admins"
+      (pageChanged)="pageChangedAdmin($event)"
+    ></table-cmp>
+  </mat-tab>
+</mat-tab-group>

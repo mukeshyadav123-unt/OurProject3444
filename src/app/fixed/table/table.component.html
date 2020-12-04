@@ -1,0 +1,93 @@
+<div class="row m-0">
+  <div class="col-md-12">
+    <div class="card mt-4">
+      <div class="card-header d-flex justify-content-md-between">
+        <h4 class="card-title main-color font-weight-bold m-0">
+          {{ data.title }}
+        </h4>
+        <form>
+          <div class="input-group no-border">
+            <input
+              type="text"
+              value=""
+              class="form-control"
+              placeholder="Search by {{ data.searchField }}"
+              (input)="onSearchChange($event.target.value)"
+            />
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <i class="fa fa-search" aria-hidden="true"></i>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table">
+            <thead class="text-primary">
+              <th *ngFor="let header of data.headerRow" class="text-center">
+                {{ header }}
+              </th>
+              <th
+                class="text-center"
+                *ngFor="let buttonName of data.buttonName"
+              >
+                {{ buttonName }}
+              </th>
+            </thead>
+            <tbody>
+              <ng-container *ngIf="data.dataRows">
+                <tr
+                  *ngFor="
+                    let item of searchResult.dataRows
+                      | paginate
+                        : {
+                            id: data.title,
+                            itemsPerPage: data.dataRows.per_page,
+                            currentPage: data.dataRows.current_page,
+                            totalItems: data.dataRows.total
+                          };
+                    let i = index
+                  "
+                >
+                  <td *ngFor="let key of searchResult.keys" class="text-center">
+                    {{ item[key] }}
+                  </td>
+                  <td class="text-center" *ngIf="data.buttonName">
+                    <button
+                      class="btn main-btn"
+                      id="{{ 'user' + i }}"
+                      (click)="actionClick(i)"
+                      *ngIf="data.buttonName[0]"
+                    >
+                      {{ data.buttonName[0] }}
+                    </button>
+                  </td>
+                  <td class="text-center" *ngIf="data.buttonName">
+                    <button
+                      class="btn btn-danger"
+                      id="{{ 'user' + i }}"
+                      (click)="deleteClick(i)"
+                      *ngIf="data.buttonName[1]"
+                    >
+                      {{ data.buttonName[1] }}
+                    </button>
+                  </td>
+                </tr>
+                <pagination-controls
+                  *ngIf="data.dataRows.per_page"
+                  (pageChange)="handlePageChange($event)"
+                  previousLabel="Prev"
+                  nextLabel="Next"
+                  id="{{ data.title }}"
+                  autoHide="true"
+                ></pagination-controls>
+              </ng-container>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

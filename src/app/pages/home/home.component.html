@@ -1,0 +1,123 @@
+<section id="intro">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-5 d-lg-block d-none">
+        <div class="intro-img">
+          <img
+            class="img-fluid w-75 ml-auto"
+            src="../../../assets/images/everest.png"
+          />
+        </div>
+      </div>
+      <div
+        class="col-lg-6 col-md-12 align-items-center d-flex justify-content-start desc-col"
+      >
+        <div class="description">
+          <h1 class="font-weight-bolder">
+            Welcome to <span class="main-color">Everest</span> online store
+          </h1>
+          <p>Search, Select, Buy!</p>
+          <a routerLink="." fragment="products" class="main-color">
+            Explore <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="products" #products *ngIf="productsList">
+  <div class="description text-center">
+    <h2>Products</h2>
+  </div>
+  <div class="products w-100 px-3">
+    <div class="row" *ngIf="categories">
+      <div class="classes container d-flex align-items-center">
+        <mat-form-field appearance="fill" class="p-0">
+          <mat-label>Category</mat-label>
+          <mat-select
+            (selectionChange)="categoryChanged($event)"
+            [value]="selectedCategory"
+          >
+            <mat-option
+              value="{{ category.name }}"
+              *ngFor="let category of categories"
+            >
+              {{ category.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row w-100 m-auto">
+      <div
+        class="col-lg-3 col-md-6 col-sm-6"
+        *ngFor="
+          let product of productsList.data
+            | paginate
+              : {
+                  itemsPerPage: productsList.per_page,
+                  currentPage: productsList.current_page,
+                  totalItems: productsList.total
+                }
+        "
+      >
+        <div class="product my-4">
+          <div class="w-100 img-cont">
+            <img
+              *ngIf="product.images[0]?.url"
+              [src]="product.images[0].url"
+              class="img-fluid"
+            />
+          </div>
+
+          <a routerLink="{{ encodeId(product.id) }}"
+            ><h3 class="text-center">{{ product.name }}</h3></a
+          >
+          <div class="rating text-center">
+            <i
+              class="fa fa-star"
+              aria-hidden="true"
+              *ngFor="let star of [1, 2, 3, 4]"
+            ></i>
+
+            <i class="fa fa-star-half-o" aria-hidden="true" *ngIf="true"></i>
+          </div>
+          <p class="text-center main-color">${{ product.cost }}</p>
+          <div class="actions mb-3">
+            <div
+              class="d-flex justify-content-center align-items-center flex-row"
+            >
+              <div class="favourite" *ngIf="favourites">
+                <a class="favourite-hover favourite-btn">
+                  <i
+                    class="fa fa-heart fa-2x favourite-select"
+                    (click)="deleteFromFavourites(product)"
+                    aria-hidden="true"
+                    *ngIf="product.isFavourite"
+                  ></i>
+                  <i
+                    class="fa fa-heart-o fa-2x favourite-hover"
+                    aria-hidden="true"
+                    (click)="addToFavourites(product)"
+                    *ngIf="!product.isFavourite"
+                  ></i>
+                </a>
+              </div>
+              <div class="cart ml-3">
+                <button class="btn cart-btn" (click)="addToCart(product)">
+                  Add to cart
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <pagination-controls
+      (pageChange)="handlePageChange($event)"
+      previousLabel="Prev"
+      nextLabel="Next"
+      autoHide="true"
+    ></pagination-controls>
+  </div>
+</section>

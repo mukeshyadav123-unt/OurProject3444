@@ -1,0 +1,27 @@
+/* You can add global styles to this file, and also import other style files */
+@font-face {
+  font-family: fredoka;
+  src: url(assets/fonts/FredokaOne-Regular.ttf) format("truetype");
+}
+html,
+body {
+  height: 100%;
+  background-color: #f4f3ef;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+:root {
+  --primary-color: #1156fb;
+  --second-color: #66615b;
+}
+.main-color {
+  color: var(--primary-color);
+}
+.second-color {
+  color: var(--second-color);
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

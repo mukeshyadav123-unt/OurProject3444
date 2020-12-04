@@ -1,0 +1,47 @@
+<section id="product" *ngIf="product">
+  <div class="row m-auto">
+    <div class="col-lg-5 col-md-8 col-sm-12 m-auto">
+      <div class="card">
+        <div class="img-container w-100 p-2">
+          <img
+            class="card-img-top img-fluid w-100"
+            *ngIf="product.images[0]?.url"
+            [src]="product.images[0].url"
+          />
+        </div>
+
+        <div class="card-body">
+          <h2 class="card-title m-0 font-weight-bolder">{{ product.name }}</h2>
+          <h4 class="card-subtitle m-0 font-weight-bold">
+            ${{ product.cost }}
+          </h4>
+          <h5 class="card-subtitle text-muted">
+            In stock: {{ product.in_stock }}
+          </h5>
+          <p class="card-text">
+            {{ product.description }}
+          </p>
+          <a (click)="addToCart(product)" class="btn btn-primary"
+            >Add to cart</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- <section id="votes">
+  <div class="row w-100">
+    <div class="col-lg-1 col-md-0"></div>
+    <div class="col-4">
+      <div class="vote">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <div class="rates"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-1 col-md-0"></div>
+  </div>
+</section> -->

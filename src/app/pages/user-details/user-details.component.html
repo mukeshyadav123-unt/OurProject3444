@@ -1,0 +1,136 @@
+<section id="profile">
+  <mat-card class="profile-card text-center">
+    <mat-card-header class="text-center m-auto justify-content-center d-flex">
+      <mat-card-title class="text-center mb-3"
+        >Welcome <span *ngIf="user.name">{{ username | titlecase }}</span>
+      </mat-card-title>
+      <mat-card-subtitle class="text-center"
+        >Update your profile</mat-card-subtitle
+      >
+    </mat-card-header>
+    <mat-card-content
+      ><div class="update-form">
+        <form
+          class="d-flex flex-column"
+          (ngSubmit)="update(updateForm)"
+          #updateForm="ngForm"
+        >
+          <mat-form-field appearance="fill">
+            <mat-label>Name</mat-label>
+            <input
+              matInput
+              placeholder="Name"
+              [(ngModel)]="user.name"
+              type="text"
+              minlength="3"
+              maxlength="32"
+              name="name"
+              required
+              #name
+              value="{{ user.name }}"
+            />
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Email</mat-label>
+            <input
+              matInput
+              placeholder="Email"
+              [(ngModel)]="user.email"
+              type="email"
+              minlength="8"
+              maxlength="32"
+              name="email"
+              required
+              #email
+              value="{{ user.email }}"
+            />
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Your current password</mat-label>
+            <input
+              matInput
+              placeholder="Password"
+              [(ngModel)]="user.password"
+              type="password"
+              minlength="8"
+              maxlength="32"
+              name="password"
+              required
+              #password
+              value="{{ user.password }}"
+            />
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Confirm your current password</mat-label>
+            <input
+              matInput
+              placeholder="Password"
+              [(ngModel)]="user.password"
+              type="password"
+              minlength="8"
+              maxlength="32"
+              name="password"
+              required
+              #password
+              value="{{ user.password }}"
+            />
+          </mat-form-field>
+          <mat-label class="my-3"
+            >If you want to change your password</mat-label
+          >
+          <mat-form-field appearance="fill">
+            <mat-label>New password</mat-label>
+            <input
+              matInput
+              placeholder="New password"
+              [(ngModel)]="user.newPassword"
+              type="password"
+              minlength="8"
+              maxlength="32"
+              name="newPassword"
+              #newPassword
+              value="{{ user.newPassword }}"
+            />
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Confirm new password</mat-label>
+            <input
+              matInput
+              placeholder="Confirm password"
+              [(ngModel)]="user.renewPassword"
+              type="password"
+              minlength="8"
+              maxlength="32"
+              name="renewPassword"
+              #renewPassword
+              value="{{ user.renewPassword }}"
+            />
+          </mat-form-field>
+
+          <div
+            class="d-flex justify-content-center align-content-center flex-row"
+          >
+            <button
+              mat-raised-button
+              class="btn submit-button"
+              type="submit"
+              [disabled]="
+                !updateForm.form.valid &&
+                newPassword.value === renewPassword.value
+              "
+            >
+              Update
+            </button>
+            <button
+              class="btn btn-danger"
+              (click)="deleteMe()"
+              [disabled]="!password.validity.valid"
+            >
+              Delete account
+            </button>
+          </div>
+        </form>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</section>
