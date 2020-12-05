@@ -1,0 +1,87 @@
+Group Name: Everest3444
+Project Name: Everest Online Store
+Group Members: 
+1. Mukesh Yadav: Frontend
+2. Paras KC: Frontend
+3. Suman Kumar Raila: Backend
+4. Sharan Sherpunja: Backend
+5. Dhruvil Dhudhat: Backend
+
+************** INSTRUCTION OF HOW TO RUN THE PROGRAM ***********
+
+------------------------------------------------------------------------
+1.what you need to download
+
+composer - getcomposer.org/download
+xampp - We used XAMPP Version: 7.4.12
+	-php version 7.4.12
+vscode - We use vs code as our code editor/
+nodejs - We used Node.js v14.15.1.
+angular: This can be installed running given commands in the Frontend Section.
+	 This commnad can help us enable angular cli:
+			->npm install -g @angular/cli
+
+2.  Setup the Backend 
+- Clone the Backend project from github or downlaod the zip folder
+
+- Head to the project folder
+
+- Open Backend Folder in cmd in the file 
+
+- type 
+	->composer i
+... wait until it completes
+
+- copy .env.example file from the backend folder and paste it in the backend folder and rename it ".env"
+
+- open .env as a text file and set your database name as follows: 
+		DB_DATABASE="everest-db"
+		DB_HOST ="e-commerce.cgmsecf1toom.us-east-1.rds.amazonaws.com"
+		DB_USERNAME= "admin"
+		DB_PASSWORD= "C8U2%&NOyf"
+
+- Run following commands to get started with backend
+	->php artisan migrate 
+	->php artisan key:generate
+	->php artisan serve 
+// now the server is running
+
+
+-----------------------------------------------------------------------------
+Now we need to setup our Frontend:
+1- Clone the frontend project from github or downlaod the zip folder
+2- open cmd at the directory containing frontend files 
+3- run the following commmands 
+	->npm install
+	->npm install -g @angular/cli
+	->npm install @stripe/stripe-js --save
+	->ng s --o 
+-----------------------
+if u still find any errors with the ng s --o command check this solution
+
+Delete all protractor and webdriver related files from the location 'C:\Users{userName}\AppData\Roaming\npm'
+And do 'npm install protractor' from the above location, to fix any issue.
+
+Also make sure follwing path is added in your user variable:
+	C:\Users\Your User Name\AppData\Roaming\npm
+	C:\Users\Your User Name\AppData\Roaming\npm\node_modules\@angular\cli\bin
+
+
+---------------
+
+
+Each command will take around a minute to complete.
+After completion of all the commands, a new Tab will open at your browser.
+Now you can login as a admin or register to login as a user.
+You can use following "admin credentials" to login as a adminstarator to perform admin functions. 
+email: admin@admin.com
+password: password
+
+-----------------------
+
+Our Database is hosted on Amazon Web Services (AWS) which used Relational Database Management System to manage our data tables.
+We have used Table Plus to view and update our database table information. TablePlus is a native app which helps you easily edit 
+database data and structure. TablePlus currently Supports: PostgreSQL, MySQL, RedShift, MariaDB,SQLite and much more.
+
+
+
